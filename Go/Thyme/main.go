@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	println(web.CheckPasswordHash("114514",web.GeneratePasswordHash("114514")))
 	app, err := web.Init()
 	if err != nil {
 		fmt.Println(err)

@@ -1,4 +1,4 @@
-package web
+package extension
 
 import (
 	"crypto/md5"
