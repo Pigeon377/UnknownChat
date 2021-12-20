@@ -20,6 +20,7 @@ func routerInit(router *gin.Engine) {
 
 	{
 		auth.POST("/register", auth1.Register)
+		auth.POST("/login", auth1.Login)
 	}
 }
 
