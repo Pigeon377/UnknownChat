@@ -7,14 +7,14 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
+	"strconv"
+	"time"
 )
 
 var (
 	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/thyme?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
-	key     = "Parsley Sage Rosemary and Thyme"
+	key     = []byte("Parsley Sage Rosemary and Thyme")
 )
-
-
 
 func init() {
 	if err != nil {
@@ -23,12 +23,13 @@ func init() {
 	return
 }
 
-func GenerateToken() string {
-	claims :=  jwt.StandardClaims{
-		ExpiresAt: 15000,
-		Issuer:    "Pigeon377",
+func GenerateToken(uuid int64) string {
+	claims := jwt.StandardClaims{
+		ExpiresAt: time.Now().Unix() + 7*24*60*60,
+		Issuer:    "!>_<!",
+		Id:        strconv.FormatInt(uuid, 10),
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256,claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	headerMap := make(map[string]interface{})
 	headerMap["alg"] = "HS256"
@@ -36,25 +37,21 @@ func GenerateToken() string {
 	headerMap["iss"] = "Pigeon377"
 	token.Header = headerMap
 
-	tokenString, _ := token.SignedString(key)
+	tokenString, err := token.SignedString(key)
+	if err != nil {
+		fmt.Println(err)
+	}
 	return tokenString
 }
 
-func ParseToken(tokenString string) (interface{}, bool) {
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unknown algorithm : %s", token.Header["alg"])
-		}
-		return []byte(key), nil
+func ParseToken(tokenString string) bool {
+	_, err := jwt.ParseWithClaims(tokenString, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return key, nil
 	})
 	if err != nil {
-		return nil, false
-	}
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		return claims, true
+		return false
 	} else {
-		fmt.Println(err)
-		return nil, false
+		return true
 	}
 }
 

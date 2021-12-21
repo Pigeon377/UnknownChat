@@ -36,7 +36,7 @@ func Login(ctx *gin.Context){
 			"status":1,
 			"message":"Succeed",
 			"data":gin.H{
-				"token":114514,
+				"token":extension.GenerateToken(tempUser.UUID),
 			},
 		})
 	}else{
