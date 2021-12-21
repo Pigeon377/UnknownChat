@@ -9,8 +9,8 @@ import (
 
 func Init() (*gin.Engine, error) {
 	router := gin.Default()
-	routerInit(router)
 	tableInit()
+	routerInit(router)
 	return router, nil
 }
 
