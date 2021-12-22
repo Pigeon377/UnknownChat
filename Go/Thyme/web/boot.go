@@ -21,11 +21,6 @@ func routerInit(router *gin.Engine) {
 	{
 		auth.POST("/register", auth1.Register)
 		auth.POST("/login", auth1.Login)
-		auth.POST("/", func(ctx *gin.Context) {
-			token :=ctx.GetHeader("token")
-			check := extension.ParseToken(token)
-			ctx.JSON(200,check)
-		})
 	}
 }
 

@@ -6,13 +6,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 	"log"
 	"strconv"
 	"time"
 )
 
 var (
-	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/thyme?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
+	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/thyme?charset=utf8mb4&parseTime=True&loc=Local"),
+		&gorm.Config{NamingStrategy: schema.NamingStrategy{SingularTable: true}})
 	key     = []byte("Parsley Sage Rosemary and Thyme")
 )
 
@@ -26,7 +28,7 @@ func init() {
 func GenerateToken(uuid int64) string {
 	claims := jwt.StandardClaims{
 		ExpiresAt: time.Now().Unix() + 7*24*60*60,
-		Issuer:    "!>_<!",
+		Issuer:    "Pigeon377",
 		Id:        strconv.FormatInt(uuid, 10),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -34,7 +36,7 @@ func GenerateToken(uuid int64) string {
 	headerMap := make(map[string]interface{})
 	headerMap["alg"] = "HS256"
 	headerMap["typ"] = "JWT"
-	headerMap["iss"] = "Pigeon377"
+	headerMap["iss"] = "!>_<!"
 	token.Header = headerMap
 
 	tokenString, err := token.SignedString(key)
@@ -44,15 +46,21 @@ func GenerateToken(uuid int64) string {
 	return tokenString
 }
 
-func ParseToken(tokenString string) bool {
-	_, err := jwt.ParseWithClaims(tokenString, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return key, nil
+func ParseToken(tokenString string) (int64,bool) {
+	token, err := jwt.ParseWithClaims(tokenString, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return key, nil  // return private key (key's type should be []byte)
 	})
-	if err != nil {
-		return false
-	} else {
-		return true
+	claim := token.Claims.(*jwt.StandardClaims)
+	if err == nil && claim.Issuer == "Pigeon377" {
+		uuid, err1 := strconv.Atoi(claim.Id)
+		if err1 !=nil {
+			return -1,false
+		}
+		return int64(uuid),true
+	} else {  // err != nil
+		return -1, false
 	}
+
 }
 
 func GeneratePasswordHash(password string) (string, error) {

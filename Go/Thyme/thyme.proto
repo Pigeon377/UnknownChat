@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "/Thyme";
+
+package thyme;
+
+
+message RequestMessage{  // send this message when request client is available
+  int64 sender = 1; // client's unique id(uuid)
+  int64 receiver = 2; //receiver's uuid
+  string body = 3;
+}
+
+message ResponseMessage{
+  int32 RoomID = 4;
+  bool status = 3;
+}
+
+
+service ChatService{
+  rpc Communicate(RequestMessage) returns (ResponseMessage){}
+}
