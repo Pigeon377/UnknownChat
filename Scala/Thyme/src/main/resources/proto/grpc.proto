@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option go_package = "/grpc";
-
+option java_package = "com.thyme.grpc";
 package grpc;
 
 

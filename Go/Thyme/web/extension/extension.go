@@ -21,7 +21,7 @@ var (
 		&gorm.Config{NamingStrategy: schema.NamingStrategy{SingularTable: true}})
 	key     = []byte("Parsley Sage Rosemary and Thyme")
 
-	addr = flag.String("addr", "localhost:50051", "the address to connect to")
+	addr = flag.String("addr", "81.68.100.77:2333", "the address to connect to")
 )
 
 func init() {

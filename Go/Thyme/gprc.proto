@@ -1,13 +1,13 @@
 syntax = "proto3";
 
 option go_package = "/grpc";
-
+option java_package = "com.thyme.grpc";
 package grpc;
 
 
 message RequestMessage{  // send this message when request client is available
   int64 sender = 1; // client's unique id(uuid)
-  int64 receiver = 2; //receiver's uuid
+  int64 receiver = 2; //all message will be put in a room,all room have a id
   string body = 3;
 }
 

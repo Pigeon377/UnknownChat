@@ -1,7 +1,7 @@
 package com.thyme.service;
 
-import grpc.ChatServiceGrpc;
-import grpc.Grpc;
+import com.thyme.grpc.ChatServiceGrpc;
+import com.thyme.grpc.Grpc;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
