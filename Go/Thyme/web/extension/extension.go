@@ -1,9 +1,13 @@
 package extension
 
 import (
+	service "Thyme/grpc"
+	"context"
+	"flag"
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
+	"google.golang.org/grpc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -13,9 +17,11 @@ import (
 )
 
 var (
-	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/grpc?charset=utf8mb4&parseTime=True&loc=Local"),
+	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/thyme?charset=utf8mb4&parseTime=True&loc=Local"),
 		&gorm.Config{NamingStrategy: schema.NamingStrategy{SingularTable: true}})
 	key     = []byte("Parsley Sage Rosemary and Thyme")
+
+	addr = flag.String("addr", "localhost:50051", "the address to connect to")
 )
 
 func init() {
@@ -79,6 +85,36 @@ func CheckPasswordHash(needCheckPassword string, truePassword string) bool {
 	}
 	return true
 }
+
+
+func SendGrpcMessage(uuid int64,receiver int64,message string){
+	flag.Parse()
+	conn, err := grpc.Dial(*addr, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer func(conn *grpc.ClientConn) {
+		err := conn.Close()
+		if err != nil {
+			return
+		}
+	}(conn)
+
+	c := service.NewChatServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := c.Communicate(ctx, &service.RequestMessage{
+		Sender: uuid,
+		Receiver: receiver,
+		Body: message,
+	})
+	if err != nil {
+		log.Fatalf("can't send grpc message: %v", err)
+	}
+	log.Print(r)
+}
+
 
 //
 //func GeneratePasswordHash(password string) string {
