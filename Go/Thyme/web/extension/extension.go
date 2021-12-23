@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/thyme?charset=utf8mb4&parseTime=True&loc=Local"),
+	DB, err = gorm.Open(mysql.Open("root:3777777@tcp(127.0.0.1:3306)/grpc?charset=utf8mb4&parseTime=True&loc=Local"),
 		&gorm.Config{NamingStrategy: schema.NamingStrategy{SingularTable: true}})
 	key     = []byte("Parsley Sage Rosemary and Thyme")
 )
