@@ -1,5 +1,6 @@
-package com.thyme.service;
+package com.thyme.grpc.server;
 
+import com.thyme.Main;
 import com.thyme.grpc.ChatServiceGrpc;
 import com.thyme.grpc.Grpc;
 import io.grpc.Server;
