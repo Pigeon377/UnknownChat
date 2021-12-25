@@ -4,19 +4,31 @@ option go_package = "/grpc";
 option java_package = "com.thyme.grpc";
 package grpc;
 
-
-message RequestMessage{  // send this message when request client is available
-  int64 sender = 1; // client's unique id(uuid)
-  int64 receiver = 2; //all message will be put in a room,all room have a id
-  string body = 3;
+message JoinRoomRequest{
+  int64 roomID = 1;
+  int64 uuid = 2;
 }
 
-message ResponseMessage{
-  int32 RoomID = 4;
-  bool status = 3;
+message JoinRoomResponse{
+  bool status = 1;
+  string roomWebsocketURL = 2;
+  string roomName = 3;
+  repeated int64 userList = 4;
 }
 
+message CreateRoomRequest{
+  repeated int64 userList = 1;
+  string roomName = 2;
+}
 
-service ChatService{
-  rpc Communicate(RequestMessage) returns (ResponseMessage){}
+message CreateRoomResponse{
+  bool status = 1;
+  string roomName = 2;
+  string roomWebsocketURL = 3;
+  repeated int64 userList = 4;
+}
+
+service Chat{
+  rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse){};
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse){};
 }

@@ -18,86 +18,122 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ChatServiceClient is the client API for ChatService service.
+// ChatClient is the client API for Chat service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ChatServiceClient interface {
-	Communicate(ctx context.Context, in *RequestMessage, opts ...grpc.CallOption) (*ResponseMessage, error)
+type ChatClient interface {
+	JoinRoom(ctx context.Context, in *JoinRoomRequest, opts ...grpc.CallOption) (*JoinRoomResponse, error)
+	CreateRoom(ctx context.Context, in *CreateRoomRequest, opts ...grpc.CallOption) (*CreateRoomResponse, error)
 }
 
-type chatServiceClient struct {
+type chatClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewChatServiceClient(cc grpc.ClientConnInterface) ChatServiceClient {
-	return &chatServiceClient{cc}
+func NewChatClient(cc grpc.ClientConnInterface) ChatClient {
+	return &chatClient{cc}
 }
 
-func (c *chatServiceClient) Communicate(ctx context.Context, in *RequestMessage, opts ...grpc.CallOption) (*ResponseMessage, error) {
-	out := new(ResponseMessage)
-	err := c.cc.Invoke(ctx, "/grpc.ChatService/Communicate", in, out, opts...)
+func (c *chatClient) JoinRoom(ctx context.Context, in *JoinRoomRequest, opts ...grpc.CallOption) (*JoinRoomResponse, error) {
+	out := new(JoinRoomResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Chat/JoinRoom", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ChatServiceServer is the server API for ChatService service.
-// All implementations must embed UnimplementedChatServiceServer
+func (c *chatClient) CreateRoom(ctx context.Context, in *CreateRoomRequest, opts ...grpc.CallOption) (*CreateRoomResponse, error) {
+	out := new(CreateRoomResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Chat/CreateRoom", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ChatServer is the server API for Chat service.
+// All implementations must embed UnimplementedChatServer
 // for forward compatibility
-type ChatServiceServer interface {
-	Communicate(context.Context, *RequestMessage) (*ResponseMessage, error)
-	mustEmbedUnimplementedChatServiceServer()
+type ChatServer interface {
+	JoinRoom(context.Context, *JoinRoomRequest) (*JoinRoomResponse, error)
+	CreateRoom(context.Context, *CreateRoomRequest) (*CreateRoomResponse, error)
+	mustEmbedUnimplementedChatServer()
 }
 
-// UnimplementedChatServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedChatServiceServer struct {
+// UnimplementedChatServer must be embedded to have forward compatible implementations.
+type UnimplementedChatServer struct {
 }
 
-func (UnimplementedChatServiceServer) Communicate(context.Context, *RequestMessage) (*ResponseMessage, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Communicate not implemented")
+func (UnimplementedChatServer) JoinRoom(context.Context, *JoinRoomRequest) (*JoinRoomResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JoinRoom not implemented")
 }
-func (UnimplementedChatServiceServer) mustEmbedUnimplementedChatServiceServer() {}
+func (UnimplementedChatServer) CreateRoom(context.Context, *CreateRoomRequest) (*CreateRoomResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRoom not implemented")
+}
+func (UnimplementedChatServer) mustEmbedUnimplementedChatServer() {}
 
-// UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ChatServiceServer will
+// UnsafeChatServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ChatServer will
 // result in compilation errors.
-type UnsafeChatServiceServer interface {
-	mustEmbedUnimplementedChatServiceServer()
+type UnsafeChatServer interface {
+	mustEmbedUnimplementedChatServer()
 }
 
-func RegisterChatServiceServer(s grpc.ServiceRegistrar, srv ChatServiceServer) {
-	s.RegisterService(&ChatService_ServiceDesc, srv)
+func RegisterChatServer(s grpc.ServiceRegistrar, srv ChatServer) {
+	s.RegisterService(&Chat_ServiceDesc, srv)
 }
 
-func _ChatService_Communicate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RequestMessage)
+func _Chat_JoinRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(JoinRoomRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServiceServer).Communicate(ctx, in)
+		return srv.(ChatServer).JoinRoom(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpc.ChatService/Communicate",
+		FullMethod: "/grpc.Chat/JoinRoom",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).Communicate(ctx, req.(*RequestMessage))
+		return srv.(ChatServer).JoinRoom(ctx, req.(*JoinRoomRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
+func _Chat_CreateRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoomRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServer).CreateRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.Chat/CreateRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServer).CreateRoom(ctx, req.(*CreateRoomRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Chat_ServiceDesc is the grpc.ServiceDesc for Chat service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ChatService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.ChatService",
-	HandlerType: (*ChatServiceServer)(nil),
+var Chat_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc.Chat",
+	HandlerType: (*ChatServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Communicate",
-			Handler:    _ChatService_Communicate_Handler,
+			MethodName: "JoinRoom",
+			Handler:    _Chat_JoinRoom_Handler,
+		},
+		{
+			MethodName: "CreateRoom",
+			Handler:    _Chat_CreateRoom_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

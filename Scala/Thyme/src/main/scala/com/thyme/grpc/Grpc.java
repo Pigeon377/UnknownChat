@@ -14,57 +14,34 @@ public final class Grpc {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface RequestMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:grpc.RequestMessage)
+  public interface JoinRoomRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:grpc.JoinRoomRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <pre>
-     * client's unique id(uuid)
-     * </pre>
-     *
-     * <code>optional int64 sender = 1;</code>
+     * <code>optional int64 roomID = 1;</code>
      */
-    long getSender();
+    long getRoomID();
 
     /**
-     * <pre>
-     *all message will be put in a room,all room have a id
-     * </pre>
-     *
-     * <code>optional int64 receiver = 2;</code>
+     * <code>optional int64 uuid = 2;</code>
      */
-    long getReceiver();
-
-    /**
-     * <code>optional string body = 3;</code>
-     */
-    java.lang.String getBody();
-    /**
-     * <code>optional string body = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getBodyBytes();
+    long getUuid();
   }
   /**
-   * <pre>
-   * send this message when request client is available
-   * </pre>
-   *
-   * Protobuf type {@code grpc.RequestMessage}
+   * Protobuf type {@code grpc.JoinRoomRequest}
    */
-  public  static final class RequestMessage extends
+  public  static final class JoinRoomRequest extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:grpc.RequestMessage)
-      RequestMessageOrBuilder {
-    // Use RequestMessage.newBuilder() to construct.
-    private RequestMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:grpc.JoinRoomRequest)
+      JoinRoomRequestOrBuilder {
+    // Use JoinRoomRequest.newBuilder() to construct.
+    private JoinRoomRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private RequestMessage() {
-      sender_ = 0L;
-      receiver_ = 0L;
-      body_ = "";
+    private JoinRoomRequest() {
+      roomID_ = 0L;
+      uuid_ = 0L;
     }
 
     @java.lang.Override
@@ -72,7 +49,7 @@ public final class Grpc {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private RequestMessage(
+    private JoinRoomRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -94,18 +71,12 @@ public final class Grpc {
             }
             case 8: {
 
-              sender_ = input.readInt64();
+              roomID_ = input.readInt64();
               break;
             }
             case 16: {
 
-              receiver_ = input.readInt64();
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              body_ = s;
+              uuid_ = input.readInt64();
               break;
             }
           }
@@ -121,74 +92,32 @@ public final class Grpc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.thyme.grpc.Grpc.internal_static_grpc_RequestMessage_descriptor;
+      return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.thyme.grpc.Grpc.internal_static_grpc_RequestMessage_fieldAccessorTable
+      return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.thyme.grpc.Grpc.RequestMessage.class, com.thyme.grpc.Grpc.RequestMessage.Builder.class);
+              com.thyme.grpc.Grpc.JoinRoomRequest.class, com.thyme.grpc.Grpc.JoinRoomRequest.Builder.class);
     }
 
-    public static final int SENDER_FIELD_NUMBER = 1;
-    private long sender_;
+    public static final int ROOMID_FIELD_NUMBER = 1;
+    private long roomID_;
     /**
-     * <pre>
-     * client's unique id(uuid)
-     * </pre>
-     *
-     * <code>optional int64 sender = 1;</code>
+     * <code>optional int64 roomID = 1;</code>
      */
-    public long getSender() {
-      return sender_;
+    public long getRoomID() {
+      return roomID_;
     }
 
-    public static final int RECEIVER_FIELD_NUMBER = 2;
-    private long receiver_;
+    public static final int UUID_FIELD_NUMBER = 2;
+    private long uuid_;
     /**
-     * <pre>
-     *all message will be put in a room,all room have a id
-     * </pre>
-     *
-     * <code>optional int64 receiver = 2;</code>
+     * <code>optional int64 uuid = 2;</code>
      */
-    public long getReceiver() {
-      return receiver_;
-    }
-
-    public static final int BODY_FIELD_NUMBER = 3;
-    private volatile java.lang.Object body_;
-    /**
-     * <code>optional string body = 3;</code>
-     */
-    public java.lang.String getBody() {
-      java.lang.Object ref = body_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        body_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string body = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBodyBytes() {
-      java.lang.Object ref = body_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        body_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getUuid() {
+      return uuid_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -203,14 +132,11 @@ public final class Grpc {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (sender_ != 0L) {
-        output.writeInt64(1, sender_);
+      if (roomID_ != 0L) {
+        output.writeInt64(1, roomID_);
       }
-      if (receiver_ != 0L) {
-        output.writeInt64(2, receiver_);
-      }
-      if (!getBodyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, body_);
+      if (uuid_ != 0L) {
+        output.writeInt64(2, uuid_);
       }
     }
 
@@ -219,16 +145,13 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (sender_ != 0L) {
+      if (roomID_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, sender_);
+          .computeInt64Size(1, roomID_);
       }
-      if (receiver_ != 0L) {
+      if (uuid_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, receiver_);
-      }
-      if (!getBodyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, body_);
+          .computeInt64Size(2, uuid_);
       }
       memoizedSize = size;
       return size;
@@ -240,18 +163,16 @@ public final class Grpc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.thyme.grpc.Grpc.RequestMessage)) {
+      if (!(obj instanceof com.thyme.grpc.Grpc.JoinRoomRequest)) {
         return super.equals(obj);
       }
-      com.thyme.grpc.Grpc.RequestMessage other = (com.thyme.grpc.Grpc.RequestMessage) obj;
+      com.thyme.grpc.Grpc.JoinRoomRequest other = (com.thyme.grpc.Grpc.JoinRoomRequest) obj;
 
       boolean result = true;
-      result = result && (getSender()
-          == other.getSender());
-      result = result && (getReceiver()
-          == other.getReceiver());
-      result = result && getBody()
-          .equals(other.getBody());
+      result = result && (getRoomID()
+          == other.getRoomID());
+      result = result && (getUuid()
+          == other.getUuid());
       return result;
     }
 
@@ -262,71 +183,69 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (37 * hash) + ROOMID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getSender());
-      hash = (37 * hash) + RECEIVER_FIELD_NUMBER;
+          getRoomID());
+      hash = (37 * hash) + UUID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getReceiver());
-      hash = (37 * hash) + BODY_FIELD_NUMBER;
-      hash = (53 * hash) + getBody().hashCode();
+          getUuid());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(byte[] data)
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(java.io.InputStream input)
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseDelimitedFrom(java.io.InputStream input)
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseDelimitedFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static com.thyme.grpc.Grpc.RequestMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -338,7 +257,7 @@ public final class Grpc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.thyme.grpc.Grpc.RequestMessage prototype) {
+    public static Builder newBuilder(com.thyme.grpc.Grpc.JoinRoomRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -353,29 +272,25 @@ public final class Grpc {
       return builder;
     }
     /**
-     * <pre>
-     * send this message when request client is available
-     * </pre>
-     *
-     * Protobuf type {@code grpc.RequestMessage}
+     * Protobuf type {@code grpc.JoinRoomRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:grpc.RequestMessage)
-        com.thyme.grpc.Grpc.RequestMessageOrBuilder {
+        // @@protoc_insertion_point(builder_implements:grpc.JoinRoomRequest)
+        com.thyme.grpc.Grpc.JoinRoomRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.thyme.grpc.Grpc.internal_static_grpc_RequestMessage_descriptor;
+        return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomRequest_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.thyme.grpc.Grpc.internal_static_grpc_RequestMessage_fieldAccessorTable
+        return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.thyme.grpc.Grpc.RequestMessage.class, com.thyme.grpc.Grpc.RequestMessage.Builder.class);
+                com.thyme.grpc.Grpc.JoinRoomRequest.class, com.thyme.grpc.Grpc.JoinRoomRequest.Builder.class);
       }
 
-      // Construct using com.thyme.grpc.Grpc.RequestMessage.newBuilder()
+      // Construct using com.thyme.grpc.Grpc.JoinRoomRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -391,37 +306,34 @@ public final class Grpc {
       }
       public Builder clear() {
         super.clear();
-        sender_ = 0L;
+        roomID_ = 0L;
 
-        receiver_ = 0L;
-
-        body_ = "";
+        uuid_ = 0L;
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.thyme.grpc.Grpc.internal_static_grpc_RequestMessage_descriptor;
+        return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomRequest_descriptor;
       }
 
-      public com.thyme.grpc.Grpc.RequestMessage getDefaultInstanceForType() {
-        return com.thyme.grpc.Grpc.RequestMessage.getDefaultInstance();
+      public com.thyme.grpc.Grpc.JoinRoomRequest getDefaultInstanceForType() {
+        return com.thyme.grpc.Grpc.JoinRoomRequest.getDefaultInstance();
       }
 
-      public com.thyme.grpc.Grpc.RequestMessage build() {
-        com.thyme.grpc.Grpc.RequestMessage result = buildPartial();
+      public com.thyme.grpc.Grpc.JoinRoomRequest build() {
+        com.thyme.grpc.Grpc.JoinRoomRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.thyme.grpc.Grpc.RequestMessage buildPartial() {
-        com.thyme.grpc.Grpc.RequestMessage result = new com.thyme.grpc.Grpc.RequestMessage(this);
-        result.sender_ = sender_;
-        result.receiver_ = receiver_;
-        result.body_ = body_;
+      public com.thyme.grpc.Grpc.JoinRoomRequest buildPartial() {
+        com.thyme.grpc.Grpc.JoinRoomRequest result = new com.thyme.grpc.Grpc.JoinRoomRequest(this);
+        result.roomID_ = roomID_;
+        result.uuid_ = uuid_;
         onBuilt();
         return result;
       }
@@ -453,25 +365,21 @@ public final class Grpc {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.thyme.grpc.Grpc.RequestMessage) {
-          return mergeFrom((com.thyme.grpc.Grpc.RequestMessage)other);
+        if (other instanceof com.thyme.grpc.Grpc.JoinRoomRequest) {
+          return mergeFrom((com.thyme.grpc.Grpc.JoinRoomRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.thyme.grpc.Grpc.RequestMessage other) {
-        if (other == com.thyme.grpc.Grpc.RequestMessage.getDefaultInstance()) return this;
-        if (other.getSender() != 0L) {
-          setSender(other.getSender());
+      public Builder mergeFrom(com.thyme.grpc.Grpc.JoinRoomRequest other) {
+        if (other == com.thyme.grpc.Grpc.JoinRoomRequest.getDefaultInstance()) return this;
+        if (other.getRoomID() != 0L) {
+          setRoomID(other.getRoomID());
         }
-        if (other.getReceiver() != 0L) {
-          setReceiver(other.getReceiver());
-        }
-        if (!other.getBody().isEmpty()) {
-          body_ = other.body_;
-          onChanged();
+        if (other.getUuid() != 0L) {
+          setUuid(other.getUuid());
         }
         onChanged();
         return this;
@@ -485,11 +393,11 @@ public final class Grpc {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.thyme.grpc.Grpc.RequestMessage parsedMessage = null;
+        com.thyme.grpc.Grpc.JoinRoomRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.thyme.grpc.Grpc.RequestMessage) e.getUnfinishedMessage();
+          parsedMessage = (com.thyme.grpc.Grpc.JoinRoomRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -499,147 +407,54 @@ public final class Grpc {
         return this;
       }
 
-      private long sender_ ;
+      private long roomID_ ;
       /**
-       * <pre>
-       * client's unique id(uuid)
-       * </pre>
-       *
-       * <code>optional int64 sender = 1;</code>
+       * <code>optional int64 roomID = 1;</code>
        */
-      public long getSender() {
-        return sender_;
+      public long getRoomID() {
+        return roomID_;
       }
       /**
-       * <pre>
-       * client's unique id(uuid)
-       * </pre>
-       *
-       * <code>optional int64 sender = 1;</code>
+       * <code>optional int64 roomID = 1;</code>
        */
-      public Builder setSender(long value) {
+      public Builder setRoomID(long value) {
         
-        sender_ = value;
+        roomID_ = value;
         onChanged();
         return this;
       }
       /**
-       * <pre>
-       * client's unique id(uuid)
-       * </pre>
-       *
-       * <code>optional int64 sender = 1;</code>
+       * <code>optional int64 roomID = 1;</code>
        */
-      public Builder clearSender() {
+      public Builder clearRoomID() {
         
-        sender_ = 0L;
+        roomID_ = 0L;
         onChanged();
         return this;
       }
 
-      private long receiver_ ;
+      private long uuid_ ;
       /**
-       * <pre>
-       *all message will be put in a room,all room have a id
-       * </pre>
-       *
-       * <code>optional int64 receiver = 2;</code>
+       * <code>optional int64 uuid = 2;</code>
        */
-      public long getReceiver() {
-        return receiver_;
+      public long getUuid() {
+        return uuid_;
       }
       /**
-       * <pre>
-       *all message will be put in a room,all room have a id
-       * </pre>
-       *
-       * <code>optional int64 receiver = 2;</code>
+       * <code>optional int64 uuid = 2;</code>
        */
-      public Builder setReceiver(long value) {
+      public Builder setUuid(long value) {
         
-        receiver_ = value;
+        uuid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <pre>
-       *all message will be put in a room,all room have a id
-       * </pre>
-       *
-       * <code>optional int64 receiver = 2;</code>
+       * <code>optional int64 uuid = 2;</code>
        */
-      public Builder clearReceiver() {
+      public Builder clearUuid() {
         
-        receiver_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object body_ = "";
-      /**
-       * <code>optional string body = 3;</code>
-       */
-      public java.lang.String getBody() {
-        java.lang.Object ref = body_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          body_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string body = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBodyBytes() {
-        java.lang.Object ref = body_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          body_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string body = 3;</code>
-       */
-      public Builder setBody(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        body_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string body = 3;</code>
-       */
-      public Builder clearBody() {
-        
-        body_ = getDefaultInstance().getBody();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string body = 3;</code>
-       */
-      public Builder setBodyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        body_ = value;
+        uuid_ = 0L;
         onChanged();
         return this;
       }
@@ -654,72 +469,102 @@ public final class Grpc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:grpc.RequestMessage)
+      // @@protoc_insertion_point(builder_scope:grpc.JoinRoomRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:grpc.RequestMessage)
-    private static final com.thyme.grpc.Grpc.RequestMessage DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:grpc.JoinRoomRequest)
+    private static final com.thyme.grpc.Grpc.JoinRoomRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.thyme.grpc.Grpc.RequestMessage();
+      DEFAULT_INSTANCE = new com.thyme.grpc.Grpc.JoinRoomRequest();
     }
 
-    public static com.thyme.grpc.Grpc.RequestMessage getDefaultInstance() {
+    public static com.thyme.grpc.Grpc.JoinRoomRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<RequestMessage>
-        PARSER = new com.google.protobuf.AbstractParser<RequestMessage>() {
-      public RequestMessage parsePartialFrom(
+    private static final com.google.protobuf.Parser<JoinRoomRequest>
+        PARSER = new com.google.protobuf.AbstractParser<JoinRoomRequest>() {
+      public JoinRoomRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new RequestMessage(input, extensionRegistry);
+          return new JoinRoomRequest(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<RequestMessage> parser() {
+    public static com.google.protobuf.Parser<JoinRoomRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<RequestMessage> getParserForType() {
+    public com.google.protobuf.Parser<JoinRoomRequest> getParserForType() {
       return PARSER;
     }
 
-    public com.thyme.grpc.Grpc.RequestMessage getDefaultInstanceForType() {
+    public com.thyme.grpc.Grpc.JoinRoomRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface ResponseMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:grpc.ResponseMessage)
+  public interface JoinRoomResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:grpc.JoinRoomResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional int32 RoomID = 4;</code>
-     */
-    int getRoomID();
-
-    /**
-     * <code>optional bool status = 3;</code>
+     * <code>optional bool status = 1;</code>
      */
     boolean getStatus();
+
+    /**
+     * <code>optional string roomWebsocketURL = 2;</code>
+     */
+    java.lang.String getRoomWebsocketURL();
+    /**
+     * <code>optional string roomWebsocketURL = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoomWebsocketURLBytes();
+
+    /**
+     * <code>optional string roomName = 3;</code>
+     */
+    java.lang.String getRoomName();
+    /**
+     * <code>optional string roomName = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoomNameBytes();
+
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    java.util.List<java.lang.Long> getUserListList();
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    int getUserListCount();
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    long getUserList(int index);
   }
   /**
-   * Protobuf type {@code grpc.ResponseMessage}
+   * Protobuf type {@code grpc.JoinRoomResponse}
    */
-  public  static final class ResponseMessage extends
+  public  static final class JoinRoomResponse extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:grpc.ResponseMessage)
-      ResponseMessageOrBuilder {
-    // Use ResponseMessage.newBuilder() to construct.
-    private ResponseMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:grpc.JoinRoomResponse)
+      JoinRoomResponseOrBuilder {
+    // Use JoinRoomResponse.newBuilder() to construct.
+    private JoinRoomResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private ResponseMessage() {
-      roomID_ = 0;
+    private JoinRoomResponse() {
       status_ = false;
+      roomWebsocketURL_ = "";
+      roomName_ = "";
+      userList_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -727,7 +572,7 @@ public final class Grpc {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private ResponseMessage(
+    private JoinRoomResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -747,14 +592,42 @@ public final class Grpc {
               }
               break;
             }
-            case 24: {
+            case 8: {
 
               status_ = input.readBool();
               break;
             }
-            case 32: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              roomID_ = input.readInt32();
+              roomWebsocketURL_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              roomName_ = s;
+              break;
+            }
+            case 32: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                userList_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              userList_.add(input.readInt64());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+                userList_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                userList_.add(input.readInt64());
+              }
+              input.popLimit(limit);
               break;
             }
           }
@@ -765,38 +638,124 @@ public final class Grpc {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          userList_ = java.util.Collections.unmodifiableList(userList_);
+        }
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.thyme.grpc.Grpc.internal_static_grpc_ResponseMessage_descriptor;
+      return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomResponse_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.thyme.grpc.Grpc.internal_static_grpc_ResponseMessage_fieldAccessorTable
+      return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.thyme.grpc.Grpc.ResponseMessage.class, com.thyme.grpc.Grpc.ResponseMessage.Builder.class);
+              com.thyme.grpc.Grpc.JoinRoomResponse.class, com.thyme.grpc.Grpc.JoinRoomResponse.Builder.class);
     }
 
-    public static final int ROOMID_FIELD_NUMBER = 4;
-    private int roomID_;
-    /**
-     * <code>optional int32 RoomID = 4;</code>
-     */
-    public int getRoomID() {
-      return roomID_;
-    }
-
-    public static final int STATUS_FIELD_NUMBER = 3;
+    private int bitField0_;
+    public static final int STATUS_FIELD_NUMBER = 1;
     private boolean status_;
     /**
-     * <code>optional bool status = 3;</code>
+     * <code>optional bool status = 1;</code>
      */
     public boolean getStatus() {
       return status_;
     }
+
+    public static final int ROOMWEBSOCKETURL_FIELD_NUMBER = 2;
+    private volatile java.lang.Object roomWebsocketURL_;
+    /**
+     * <code>optional string roomWebsocketURL = 2;</code>
+     */
+    public java.lang.String getRoomWebsocketURL() {
+      java.lang.Object ref = roomWebsocketURL_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        roomWebsocketURL_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string roomWebsocketURL = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoomWebsocketURLBytes() {
+      java.lang.Object ref = roomWebsocketURL_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        roomWebsocketURL_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ROOMNAME_FIELD_NUMBER = 3;
+    private volatile java.lang.Object roomName_;
+    /**
+     * <code>optional string roomName = 3;</code>
+     */
+    public java.lang.String getRoomName() {
+      java.lang.Object ref = roomName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        roomName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string roomName = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoomNameBytes() {
+      java.lang.Object ref = roomName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        roomName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USERLIST_FIELD_NUMBER = 4;
+    private java.util.List<java.lang.Long> userList_;
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    public java.util.List<java.lang.Long>
+        getUserListList() {
+      return userList_;
+    }
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    public int getUserListCount() {
+      return userList_.size();
+    }
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    public long getUserList(int index) {
+      return userList_.get(index);
+    }
+    private int userListMemoizedSerializedSize = -1;
 
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -810,11 +769,22 @@ public final class Grpc {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (status_ != false) {
-        output.writeBool(3, status_);
+        output.writeBool(1, status_);
       }
-      if (roomID_ != 0) {
-        output.writeInt32(4, roomID_);
+      if (!getRoomWebsocketURLBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, roomWebsocketURL_);
+      }
+      if (!getRoomNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, roomName_);
+      }
+      if (getUserListList().size() > 0) {
+        output.writeUInt32NoTag(34);
+        output.writeUInt32NoTag(userListMemoizedSerializedSize);
+      }
+      for (int i = 0; i < userList_.size(); i++) {
+        output.writeInt64NoTag(userList_.get(i));
       }
     }
 
@@ -825,11 +795,27 @@ public final class Grpc {
       size = 0;
       if (status_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, status_);
+          .computeBoolSize(1, status_);
       }
-      if (roomID_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, roomID_);
+      if (!getRoomWebsocketURLBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, roomWebsocketURL_);
+      }
+      if (!getRoomNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, roomName_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < userList_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(userList_.get(i));
+        }
+        size += dataSize;
+        if (!getUserListList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        userListMemoizedSerializedSize = dataSize;
       }
       memoizedSize = size;
       return size;
@@ -841,16 +827,20 @@ public final class Grpc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.thyme.grpc.Grpc.ResponseMessage)) {
+      if (!(obj instanceof com.thyme.grpc.Grpc.JoinRoomResponse)) {
         return super.equals(obj);
       }
-      com.thyme.grpc.Grpc.ResponseMessage other = (com.thyme.grpc.Grpc.ResponseMessage) obj;
+      com.thyme.grpc.Grpc.JoinRoomResponse other = (com.thyme.grpc.Grpc.JoinRoomResponse) obj;
 
       boolean result = true;
-      result = result && (getRoomID()
-          == other.getRoomID());
       result = result && (getStatus()
           == other.getStatus());
+      result = result && getRoomWebsocketURL()
+          .equals(other.getRoomWebsocketURL());
+      result = result && getRoomName()
+          .equals(other.getRoomName());
+      result = result && getUserListList()
+          .equals(other.getUserListList());
       return result;
     }
 
@@ -861,68 +851,74 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + ROOMID_FIELD_NUMBER;
-      hash = (53 * hash) + getRoomID();
       hash = (37 * hash) + STATUS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getStatus());
+      hash = (37 * hash) + ROOMWEBSOCKETURL_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomWebsocketURL().hashCode();
+      hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomName().hashCode();
+      if (getUserListCount() > 0) {
+        hash = (37 * hash) + USERLIST_FIELD_NUMBER;
+        hash = (53 * hash) + getUserListList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(byte[] data)
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(java.io.InputStream input)
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseDelimitedFrom(java.io.InputStream input)
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseDelimitedFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static com.thyme.grpc.Grpc.ResponseMessage parseFrom(
+    public static com.thyme.grpc.Grpc.JoinRoomResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -934,7 +930,7 @@ public final class Grpc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.thyme.grpc.Grpc.ResponseMessage prototype) {
+    public static Builder newBuilder(com.thyme.grpc.Grpc.JoinRoomResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -949,25 +945,25 @@ public final class Grpc {
       return builder;
     }
     /**
-     * Protobuf type {@code grpc.ResponseMessage}
+     * Protobuf type {@code grpc.JoinRoomResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:grpc.ResponseMessage)
-        com.thyme.grpc.Grpc.ResponseMessageOrBuilder {
+        // @@protoc_insertion_point(builder_implements:grpc.JoinRoomResponse)
+        com.thyme.grpc.Grpc.JoinRoomResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.thyme.grpc.Grpc.internal_static_grpc_ResponseMessage_descriptor;
+        return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomResponse_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.thyme.grpc.Grpc.internal_static_grpc_ResponseMessage_fieldAccessorTable
+        return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.thyme.grpc.Grpc.ResponseMessage.class, com.thyme.grpc.Grpc.ResponseMessage.Builder.class);
+                com.thyme.grpc.Grpc.JoinRoomResponse.class, com.thyme.grpc.Grpc.JoinRoomResponse.Builder.class);
       }
 
-      // Construct using com.thyme.grpc.Grpc.ResponseMessage.newBuilder()
+      // Construct using com.thyme.grpc.Grpc.JoinRoomResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -983,34 +979,47 @@ public final class Grpc {
       }
       public Builder clear() {
         super.clear();
-        roomID_ = 0;
-
         status_ = false;
 
+        roomWebsocketURL_ = "";
+
+        roomName_ = "";
+
+        userList_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.thyme.grpc.Grpc.internal_static_grpc_ResponseMessage_descriptor;
+        return com.thyme.grpc.Grpc.internal_static_grpc_JoinRoomResponse_descriptor;
       }
 
-      public com.thyme.grpc.Grpc.ResponseMessage getDefaultInstanceForType() {
-        return com.thyme.grpc.Grpc.ResponseMessage.getDefaultInstance();
+      public com.thyme.grpc.Grpc.JoinRoomResponse getDefaultInstanceForType() {
+        return com.thyme.grpc.Grpc.JoinRoomResponse.getDefaultInstance();
       }
 
-      public com.thyme.grpc.Grpc.ResponseMessage build() {
-        com.thyme.grpc.Grpc.ResponseMessage result = buildPartial();
+      public com.thyme.grpc.Grpc.JoinRoomResponse build() {
+        com.thyme.grpc.Grpc.JoinRoomResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.thyme.grpc.Grpc.ResponseMessage buildPartial() {
-        com.thyme.grpc.Grpc.ResponseMessage result = new com.thyme.grpc.Grpc.ResponseMessage(this);
-        result.roomID_ = roomID_;
+      public com.thyme.grpc.Grpc.JoinRoomResponse buildPartial() {
+        com.thyme.grpc.Grpc.JoinRoomResponse result = new com.thyme.grpc.Grpc.JoinRoomResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         result.status_ = status_;
+        result.roomWebsocketURL_ = roomWebsocketURL_;
+        result.roomName_ = roomName_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          userList_ = java.util.Collections.unmodifiableList(userList_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.userList_ = userList_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -1042,21 +1051,36 @@ public final class Grpc {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.thyme.grpc.Grpc.ResponseMessage) {
-          return mergeFrom((com.thyme.grpc.Grpc.ResponseMessage)other);
+        if (other instanceof com.thyme.grpc.Grpc.JoinRoomResponse) {
+          return mergeFrom((com.thyme.grpc.Grpc.JoinRoomResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.thyme.grpc.Grpc.ResponseMessage other) {
-        if (other == com.thyme.grpc.Grpc.ResponseMessage.getDefaultInstance()) return this;
-        if (other.getRoomID() != 0) {
-          setRoomID(other.getRoomID());
-        }
+      public Builder mergeFrom(com.thyme.grpc.Grpc.JoinRoomResponse other) {
+        if (other == com.thyme.grpc.Grpc.JoinRoomResponse.getDefaultInstance()) return this;
         if (other.getStatus() != false) {
           setStatus(other.getStatus());
+        }
+        if (!other.getRoomWebsocketURL().isEmpty()) {
+          roomWebsocketURL_ = other.roomWebsocketURL_;
+          onChanged();
+        }
+        if (!other.getRoomName().isEmpty()) {
+          roomName_ = other.roomName_;
+          onChanged();
+        }
+        if (!other.userList_.isEmpty()) {
+          if (userList_.isEmpty()) {
+            userList_ = other.userList_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureUserListIsMutable();
+            userList_.addAll(other.userList_);
+          }
+          onChanged();
         }
         onChanged();
         return this;
@@ -1070,11 +1094,11 @@ public final class Grpc {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.thyme.grpc.Grpc.ResponseMessage parsedMessage = null;
+        com.thyme.grpc.Grpc.JoinRoomResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.thyme.grpc.Grpc.ResponseMessage) e.getUnfinishedMessage();
+          parsedMessage = (com.thyme.grpc.Grpc.JoinRoomResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1083,42 +1107,17 @@ public final class Grpc {
         }
         return this;
       }
-
-      private int roomID_ ;
-      /**
-       * <code>optional int32 RoomID = 4;</code>
-       */
-      public int getRoomID() {
-        return roomID_;
-      }
-      /**
-       * <code>optional int32 RoomID = 4;</code>
-       */
-      public Builder setRoomID(int value) {
-        
-        roomID_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 RoomID = 4;</code>
-       */
-      public Builder clearRoomID() {
-        
-        roomID_ = 0;
-        onChanged();
-        return this;
-      }
+      private int bitField0_;
 
       private boolean status_ ;
       /**
-       * <code>optional bool status = 3;</code>
+       * <code>optional bool status = 1;</code>
        */
       public boolean getStatus() {
         return status_;
       }
       /**
-       * <code>optional bool status = 3;</code>
+       * <code>optional bool status = 1;</code>
        */
       public Builder setStatus(boolean value) {
         
@@ -1127,11 +1126,215 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>optional bool status = 3;</code>
+       * <code>optional bool status = 1;</code>
        */
       public Builder clearStatus() {
         
         status_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object roomWebsocketURL_ = "";
+      /**
+       * <code>optional string roomWebsocketURL = 2;</code>
+       */
+      public java.lang.String getRoomWebsocketURL() {
+        java.lang.Object ref = roomWebsocketURL_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          roomWebsocketURL_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoomWebsocketURLBytes() {
+        java.lang.Object ref = roomWebsocketURL_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          roomWebsocketURL_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 2;</code>
+       */
+      public Builder setRoomWebsocketURL(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        roomWebsocketURL_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 2;</code>
+       */
+      public Builder clearRoomWebsocketURL() {
+        
+        roomWebsocketURL_ = getDefaultInstance().getRoomWebsocketURL();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 2;</code>
+       */
+      public Builder setRoomWebsocketURLBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        roomWebsocketURL_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object roomName_ = "";
+      /**
+       * <code>optional string roomName = 3;</code>
+       */
+      public java.lang.String getRoomName() {
+        java.lang.Object ref = roomName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          roomName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string roomName = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoomNameBytes() {
+        java.lang.Object ref = roomName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          roomName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string roomName = 3;</code>
+       */
+      public Builder setRoomName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        roomName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomName = 3;</code>
+       */
+      public Builder clearRoomName() {
+        
+        roomName_ = getDefaultInstance().getRoomName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomName = 3;</code>
+       */
+      public Builder setRoomNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        roomName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<java.lang.Long> userList_ = java.util.Collections.emptyList();
+      private void ensureUserListIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          userList_ = new java.util.ArrayList<java.lang.Long>(userList_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public java.util.List<java.lang.Long>
+          getUserListList() {
+        return java.util.Collections.unmodifiableList(userList_);
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public int getUserListCount() {
+        return userList_.size();
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public long getUserList(int index) {
+        return userList_.get(index);
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder setUserList(
+          int index, long value) {
+        ensureUserListIsMutable();
+        userList_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder addUserList(long value) {
+        ensureUserListIsMutable();
+        userList_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder addAllUserList(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureUserListIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, userList_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder clearUserList() {
+        userList_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
@@ -1146,54 +1349,1623 @@ public final class Grpc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:grpc.ResponseMessage)
+      // @@protoc_insertion_point(builder_scope:grpc.JoinRoomResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:grpc.ResponseMessage)
-    private static final com.thyme.grpc.Grpc.ResponseMessage DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:grpc.JoinRoomResponse)
+    private static final com.thyme.grpc.Grpc.JoinRoomResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.thyme.grpc.Grpc.ResponseMessage();
+      DEFAULT_INSTANCE = new com.thyme.grpc.Grpc.JoinRoomResponse();
     }
 
-    public static com.thyme.grpc.Grpc.ResponseMessage getDefaultInstance() {
+    public static com.thyme.grpc.Grpc.JoinRoomResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ResponseMessage>
-        PARSER = new com.google.protobuf.AbstractParser<ResponseMessage>() {
-      public ResponseMessage parsePartialFrom(
+    private static final com.google.protobuf.Parser<JoinRoomResponse>
+        PARSER = new com.google.protobuf.AbstractParser<JoinRoomResponse>() {
+      public JoinRoomResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ResponseMessage(input, extensionRegistry);
+          return new JoinRoomResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<ResponseMessage> parser() {
+    public static com.google.protobuf.Parser<JoinRoomResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ResponseMessage> getParserForType() {
+    public com.google.protobuf.Parser<JoinRoomResponse> getParserForType() {
       return PARSER;
     }
 
-    public com.thyme.grpc.Grpc.ResponseMessage getDefaultInstanceForType() {
+    public com.thyme.grpc.Grpc.JoinRoomResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CreateRoomRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:grpc.CreateRoomRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated int64 userList = 1;</code>
+     */
+    java.util.List<java.lang.Long> getUserListList();
+    /**
+     * <code>repeated int64 userList = 1;</code>
+     */
+    int getUserListCount();
+    /**
+     * <code>repeated int64 userList = 1;</code>
+     */
+    long getUserList(int index);
+
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    java.lang.String getRoomName();
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoomNameBytes();
+  }
+  /**
+   * Protobuf type {@code grpc.CreateRoomRequest}
+   */
+  public  static final class CreateRoomRequest extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:grpc.CreateRoomRequest)
+      CreateRoomRequestOrBuilder {
+    // Use CreateRoomRequest.newBuilder() to construct.
+    private CreateRoomRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private CreateRoomRequest() {
+      userList_ = java.util.Collections.emptyList();
+      roomName_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private CreateRoomRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                userList_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              userList_.add(input.readInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+                userList_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                userList_.add(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              roomName_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          userList_ = java.util.Collections.unmodifiableList(userList_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.thyme.grpc.Grpc.CreateRoomRequest.class, com.thyme.grpc.Grpc.CreateRoomRequest.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int USERLIST_FIELD_NUMBER = 1;
+    private java.util.List<java.lang.Long> userList_;
+    /**
+     * <code>repeated int64 userList = 1;</code>
+     */
+    public java.util.List<java.lang.Long>
+        getUserListList() {
+      return userList_;
+    }
+    /**
+     * <code>repeated int64 userList = 1;</code>
+     */
+    public int getUserListCount() {
+      return userList_.size();
+    }
+    /**
+     * <code>repeated int64 userList = 1;</code>
+     */
+    public long getUserList(int index) {
+      return userList_.get(index);
+    }
+    private int userListMemoizedSerializedSize = -1;
+
+    public static final int ROOMNAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object roomName_;
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    public java.lang.String getRoomName() {
+      java.lang.Object ref = roomName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        roomName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoomNameBytes() {
+      java.lang.Object ref = roomName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        roomName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (getUserListList().size() > 0) {
+        output.writeUInt32NoTag(10);
+        output.writeUInt32NoTag(userListMemoizedSerializedSize);
+      }
+      for (int i = 0; i < userList_.size(); i++) {
+        output.writeInt64NoTag(userList_.get(i));
+      }
+      if (!getRoomNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, roomName_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < userList_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(userList_.get(i));
+        }
+        size += dataSize;
+        if (!getUserListList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        userListMemoizedSerializedSize = dataSize;
+      }
+      if (!getRoomNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, roomName_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.thyme.grpc.Grpc.CreateRoomRequest)) {
+        return super.equals(obj);
+      }
+      com.thyme.grpc.Grpc.CreateRoomRequest other = (com.thyme.grpc.Grpc.CreateRoomRequest) obj;
+
+      boolean result = true;
+      result = result && getUserListList()
+          .equals(other.getUserListList());
+      result = result && getRoomName()
+          .equals(other.getRoomName());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (getUserListCount() > 0) {
+        hash = (37 * hash) + USERLIST_FIELD_NUMBER;
+        hash = (53 * hash) + getUserListList().hashCode();
+      }
+      hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomName().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.thyme.grpc.Grpc.CreateRoomRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code grpc.CreateRoomRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:grpc.CreateRoomRequest)
+        com.thyme.grpc.Grpc.CreateRoomRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.thyme.grpc.Grpc.CreateRoomRequest.class, com.thyme.grpc.Grpc.CreateRoomRequest.Builder.class);
+      }
+
+      // Construct using com.thyme.grpc.Grpc.CreateRoomRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        userList_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        roomName_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomRequest_descriptor;
+      }
+
+      public com.thyme.grpc.Grpc.CreateRoomRequest getDefaultInstanceForType() {
+        return com.thyme.grpc.Grpc.CreateRoomRequest.getDefaultInstance();
+      }
+
+      public com.thyme.grpc.Grpc.CreateRoomRequest build() {
+        com.thyme.grpc.Grpc.CreateRoomRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.thyme.grpc.Grpc.CreateRoomRequest buildPartial() {
+        com.thyme.grpc.Grpc.CreateRoomRequest result = new com.thyme.grpc.Grpc.CreateRoomRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          userList_ = java.util.Collections.unmodifiableList(userList_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.userList_ = userList_;
+        result.roomName_ = roomName_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.thyme.grpc.Grpc.CreateRoomRequest) {
+          return mergeFrom((com.thyme.grpc.Grpc.CreateRoomRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.thyme.grpc.Grpc.CreateRoomRequest other) {
+        if (other == com.thyme.grpc.Grpc.CreateRoomRequest.getDefaultInstance()) return this;
+        if (!other.userList_.isEmpty()) {
+          if (userList_.isEmpty()) {
+            userList_ = other.userList_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureUserListIsMutable();
+            userList_.addAll(other.userList_);
+          }
+          onChanged();
+        }
+        if (!other.getRoomName().isEmpty()) {
+          roomName_ = other.roomName_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.thyme.grpc.Grpc.CreateRoomRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.thyme.grpc.Grpc.CreateRoomRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<java.lang.Long> userList_ = java.util.Collections.emptyList();
+      private void ensureUserListIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          userList_ = new java.util.ArrayList<java.lang.Long>(userList_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public java.util.List<java.lang.Long>
+          getUserListList() {
+        return java.util.Collections.unmodifiableList(userList_);
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public int getUserListCount() {
+        return userList_.size();
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public long getUserList(int index) {
+        return userList_.get(index);
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public Builder setUserList(
+          int index, long value) {
+        ensureUserListIsMutable();
+        userList_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public Builder addUserList(long value) {
+        ensureUserListIsMutable();
+        userList_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public Builder addAllUserList(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureUserListIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, userList_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 1;</code>
+       */
+      public Builder clearUserList() {
+        userList_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object roomName_ = "";
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public java.lang.String getRoomName() {
+        java.lang.Object ref = roomName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          roomName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoomNameBytes() {
+        java.lang.Object ref = roomName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          roomName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public Builder setRoomName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        roomName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public Builder clearRoomName() {
+        
+        roomName_ = getDefaultInstance().getRoomName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public Builder setRoomNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        roomName_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:grpc.CreateRoomRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:grpc.CreateRoomRequest)
+    private static final com.thyme.grpc.Grpc.CreateRoomRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.thyme.grpc.Grpc.CreateRoomRequest();
+    }
+
+    public static com.thyme.grpc.Grpc.CreateRoomRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CreateRoomRequest>
+        PARSER = new com.google.protobuf.AbstractParser<CreateRoomRequest>() {
+      public CreateRoomRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new CreateRoomRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CreateRoomRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CreateRoomRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public com.thyme.grpc.Grpc.CreateRoomRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CreateRoomResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:grpc.CreateRoomResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional bool status = 1;</code>
+     */
+    boolean getStatus();
+
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    java.lang.String getRoomName();
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoomNameBytes();
+
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    java.lang.String getRoomWebsocketURL();
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoomWebsocketURLBytes();
+
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    java.util.List<java.lang.Long> getUserListList();
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    int getUserListCount();
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    long getUserList(int index);
+  }
+  /**
+   * Protobuf type {@code grpc.CreateRoomResponse}
+   */
+  public  static final class CreateRoomResponse extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:grpc.CreateRoomResponse)
+      CreateRoomResponseOrBuilder {
+    // Use CreateRoomResponse.newBuilder() to construct.
+    private CreateRoomResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private CreateRoomResponse() {
+      status_ = false;
+      roomName_ = "";
+      roomWebsocketURL_ = "";
+      userList_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private CreateRoomResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              status_ = input.readBool();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              roomName_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              roomWebsocketURL_ = s;
+              break;
+            }
+            case 32: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                userList_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              userList_.add(input.readInt64());
+              break;
+            }
+            case 34: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+                userList_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                userList_.add(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          userList_ = java.util.Collections.unmodifiableList(userList_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.thyme.grpc.Grpc.CreateRoomResponse.class, com.thyme.grpc.Grpc.CreateRoomResponse.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int STATUS_FIELD_NUMBER = 1;
+    private boolean status_;
+    /**
+     * <code>optional bool status = 1;</code>
+     */
+    public boolean getStatus() {
+      return status_;
+    }
+
+    public static final int ROOMNAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object roomName_;
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    public java.lang.String getRoomName() {
+      java.lang.Object ref = roomName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        roomName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string roomName = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoomNameBytes() {
+      java.lang.Object ref = roomName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        roomName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ROOMWEBSOCKETURL_FIELD_NUMBER = 3;
+    private volatile java.lang.Object roomWebsocketURL_;
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    public java.lang.String getRoomWebsocketURL() {
+      java.lang.Object ref = roomWebsocketURL_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        roomWebsocketURL_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoomWebsocketURLBytes() {
+      java.lang.Object ref = roomWebsocketURL_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        roomWebsocketURL_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USERLIST_FIELD_NUMBER = 4;
+    private java.util.List<java.lang.Long> userList_;
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    public java.util.List<java.lang.Long>
+        getUserListList() {
+      return userList_;
+    }
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    public int getUserListCount() {
+      return userList_.size();
+    }
+    /**
+     * <code>repeated int64 userList = 4;</code>
+     */
+    public long getUserList(int index) {
+      return userList_.get(index);
+    }
+    private int userListMemoizedSerializedSize = -1;
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (status_ != false) {
+        output.writeBool(1, status_);
+      }
+      if (!getRoomNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, roomName_);
+      }
+      if (!getRoomWebsocketURLBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, roomWebsocketURL_);
+      }
+      if (getUserListList().size() > 0) {
+        output.writeUInt32NoTag(34);
+        output.writeUInt32NoTag(userListMemoizedSerializedSize);
+      }
+      for (int i = 0; i < userList_.size(); i++) {
+        output.writeInt64NoTag(userList_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (status_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, status_);
+      }
+      if (!getRoomNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, roomName_);
+      }
+      if (!getRoomWebsocketURLBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, roomWebsocketURL_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < userList_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(userList_.get(i));
+        }
+        size += dataSize;
+        if (!getUserListList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        userListMemoizedSerializedSize = dataSize;
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.thyme.grpc.Grpc.CreateRoomResponse)) {
+        return super.equals(obj);
+      }
+      com.thyme.grpc.Grpc.CreateRoomResponse other = (com.thyme.grpc.Grpc.CreateRoomResponse) obj;
+
+      boolean result = true;
+      result = result && (getStatus()
+          == other.getStatus());
+      result = result && getRoomName()
+          .equals(other.getRoomName());
+      result = result && getRoomWebsocketURL()
+          .equals(other.getRoomWebsocketURL());
+      result = result && getUserListList()
+          .equals(other.getUserListList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getStatus());
+      hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomName().hashCode();
+      hash = (37 * hash) + ROOMWEBSOCKETURL_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomWebsocketURL().hashCode();
+      if (getUserListCount() > 0) {
+        hash = (37 * hash) + USERLIST_FIELD_NUMBER;
+        hash = (53 * hash) + getUserListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.thyme.grpc.Grpc.CreateRoomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.thyme.grpc.Grpc.CreateRoomResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code grpc.CreateRoomResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:grpc.CreateRoomResponse)
+        com.thyme.grpc.Grpc.CreateRoomResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.thyme.grpc.Grpc.CreateRoomResponse.class, com.thyme.grpc.Grpc.CreateRoomResponse.Builder.class);
+      }
+
+      // Construct using com.thyme.grpc.Grpc.CreateRoomResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        status_ = false;
+
+        roomName_ = "";
+
+        roomWebsocketURL_ = "";
+
+        userList_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.thyme.grpc.Grpc.internal_static_grpc_CreateRoomResponse_descriptor;
+      }
+
+      public com.thyme.grpc.Grpc.CreateRoomResponse getDefaultInstanceForType() {
+        return com.thyme.grpc.Grpc.CreateRoomResponse.getDefaultInstance();
+      }
+
+      public com.thyme.grpc.Grpc.CreateRoomResponse build() {
+        com.thyme.grpc.Grpc.CreateRoomResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.thyme.grpc.Grpc.CreateRoomResponse buildPartial() {
+        com.thyme.grpc.Grpc.CreateRoomResponse result = new com.thyme.grpc.Grpc.CreateRoomResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.status_ = status_;
+        result.roomName_ = roomName_;
+        result.roomWebsocketURL_ = roomWebsocketURL_;
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          userList_ = java.util.Collections.unmodifiableList(userList_);
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.userList_ = userList_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.thyme.grpc.Grpc.CreateRoomResponse) {
+          return mergeFrom((com.thyme.grpc.Grpc.CreateRoomResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.thyme.grpc.Grpc.CreateRoomResponse other) {
+        if (other == com.thyme.grpc.Grpc.CreateRoomResponse.getDefaultInstance()) return this;
+        if (other.getStatus() != false) {
+          setStatus(other.getStatus());
+        }
+        if (!other.getRoomName().isEmpty()) {
+          roomName_ = other.roomName_;
+          onChanged();
+        }
+        if (!other.getRoomWebsocketURL().isEmpty()) {
+          roomWebsocketURL_ = other.roomWebsocketURL_;
+          onChanged();
+        }
+        if (!other.userList_.isEmpty()) {
+          if (userList_.isEmpty()) {
+            userList_ = other.userList_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureUserListIsMutable();
+            userList_.addAll(other.userList_);
+          }
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.thyme.grpc.Grpc.CreateRoomResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.thyme.grpc.Grpc.CreateRoomResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean status_ ;
+      /**
+       * <code>optional bool status = 1;</code>
+       */
+      public boolean getStatus() {
+        return status_;
+      }
+      /**
+       * <code>optional bool status = 1;</code>
+       */
+      public Builder setStatus(boolean value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool status = 1;</code>
+       */
+      public Builder clearStatus() {
+        
+        status_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object roomName_ = "";
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public java.lang.String getRoomName() {
+        java.lang.Object ref = roomName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          roomName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoomNameBytes() {
+        java.lang.Object ref = roomName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          roomName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public Builder setRoomName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        roomName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public Builder clearRoomName() {
+        
+        roomName_ = getDefaultInstance().getRoomName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomName = 2;</code>
+       */
+      public Builder setRoomNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        roomName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object roomWebsocketURL_ = "";
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public java.lang.String getRoomWebsocketURL() {
+        java.lang.Object ref = roomWebsocketURL_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          roomWebsocketURL_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoomWebsocketURLBytes() {
+        java.lang.Object ref = roomWebsocketURL_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          roomWebsocketURL_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public Builder setRoomWebsocketURL(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        roomWebsocketURL_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public Builder clearRoomWebsocketURL() {
+        
+        roomWebsocketURL_ = getDefaultInstance().getRoomWebsocketURL();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public Builder setRoomWebsocketURLBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        roomWebsocketURL_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<java.lang.Long> userList_ = java.util.Collections.emptyList();
+      private void ensureUserListIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          userList_ = new java.util.ArrayList<java.lang.Long>(userList_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public java.util.List<java.lang.Long>
+          getUserListList() {
+        return java.util.Collections.unmodifiableList(userList_);
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public int getUserListCount() {
+        return userList_.size();
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public long getUserList(int index) {
+        return userList_.get(index);
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder setUserList(
+          int index, long value) {
+        ensureUserListIsMutable();
+        userList_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder addUserList(long value) {
+        ensureUserListIsMutable();
+        userList_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder addAllUserList(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureUserListIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, userList_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 userList = 4;</code>
+       */
+      public Builder clearUserList() {
+        userList_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:grpc.CreateRoomResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:grpc.CreateRoomResponse)
+    private static final com.thyme.grpc.Grpc.CreateRoomResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.thyme.grpc.Grpc.CreateRoomResponse();
+    }
+
+    public static com.thyme.grpc.Grpc.CreateRoomResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CreateRoomResponse>
+        PARSER = new com.google.protobuf.AbstractParser<CreateRoomResponse>() {
+      public CreateRoomResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new CreateRoomResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CreateRoomResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CreateRoomResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public com.thyme.grpc.Grpc.CreateRoomResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_grpc_RequestMessage_descriptor;
+    internal_static_grpc_JoinRoomRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_grpc_RequestMessage_fieldAccessorTable;
+      internal_static_grpc_JoinRoomRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_grpc_ResponseMessage_descriptor;
+    internal_static_grpc_JoinRoomResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_grpc_ResponseMessage_fieldAccessorTable;
+      internal_static_grpc_JoinRoomResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_grpc_CreateRoomRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_grpc_CreateRoomRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_grpc_CreateRoomResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_grpc_CreateRoomResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1203,13 +2975,19 @@ public final class Grpc {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\ngrpc.proto\022\004grpc\"@\n\016RequestMessage\022\016\n\006" +
-      "sender\030\001 \001(\003\022\020\n\010receiver\030\002 \001(\003\022\014\n\004body\030\003" +
-      " \001(\t\"1\n\017ResponseMessage\022\016\n\006RoomID\030\004 \001(\005\022" +
-      "\016\n\006status\030\003 \001(\0102K\n\013ChatService\022<\n\013Commun" +
-      "icate\022\024.grpc.RequestMessage\032\025.grpc.Respo" +
-      "nseMessage\"\000B\027\n\016com.thyme.grpcZ\005/grpcb\006p" +
-      "roto3"
+      "\n\ngrpc.proto\022\004grpc\"/\n\017JoinRoomRequest\022\016\n" +
+      "\006roomID\030\001 \001(\003\022\014\n\004uuid\030\002 \001(\003\"`\n\020JoinRoomR" +
+      "esponse\022\016\n\006status\030\001 \001(\010\022\030\n\020roomWebsocket" +
+      "URL\030\002 \001(\t\022\020\n\010roomName\030\003 \001(\t\022\020\n\010userList\030" +
+      "\004 \003(\003\"7\n\021CreateRoomRequest\022\020\n\010userList\030\001" +
+      " \003(\003\022\020\n\010roomName\030\002 \001(\t\"b\n\022CreateRoomResp" +
+      "onse\022\016\n\006status\030\001 \001(\010\022\020\n\010roomName\030\002 \001(\t\022\030" +
+      "\n\020roomWebsocketURL\030\003 \001(\t\022\020\n\010userList\030\004 \003" +
+      "(\0032\206\001\n\004Chat\022;\n\010JoinRoom\022\025.grpc.JoinRoomR" +
+      "equest\032\026.grpc.JoinRoomResponse\"\000\022A\n\nCrea",
+      "teRoom\022\027.grpc.CreateRoomRequest\032\030.grpc.C" +
+      "reateRoomResponse\"\000B\027\n\016com.thyme.grpcZ\005/" +
+      "grpcb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1223,18 +3001,30 @@ public final class Grpc {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_grpc_RequestMessage_descriptor =
+    internal_static_grpc_JoinRoomRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_grpc_RequestMessage_fieldAccessorTable = new
+    internal_static_grpc_JoinRoomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_grpc_RequestMessage_descriptor,
-        new java.lang.String[] { "Sender", "Receiver", "Body", });
-    internal_static_grpc_ResponseMessage_descriptor =
+        internal_static_grpc_JoinRoomRequest_descriptor,
+        new java.lang.String[] { "RoomID", "Uuid", });
+    internal_static_grpc_JoinRoomResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_grpc_ResponseMessage_fieldAccessorTable = new
+    internal_static_grpc_JoinRoomResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_grpc_ResponseMessage_descriptor,
-        new java.lang.String[] { "RoomID", "Status", });
+        internal_static_grpc_JoinRoomResponse_descriptor,
+        new java.lang.String[] { "Status", "RoomWebsocketURL", "RoomName", "UserList", });
+    internal_static_grpc_CreateRoomRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_grpc_CreateRoomRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_grpc_CreateRoomRequest_descriptor,
+        new java.lang.String[] { "UserList", "RoomName", });
+    internal_static_grpc_CreateRoomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_grpc_CreateRoomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_grpc_CreateRoomResponse_descriptor,
+        new java.lang.String[] { "Status", "RoomName", "RoomWebsocketURL", "UserList", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

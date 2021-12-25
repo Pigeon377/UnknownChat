@@ -1,13 +1,10 @@
 package extension
 
 import (
-	service "Thyme/grpc"
-	"context"
 	"flag"
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
-	"google.golang.org/grpc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -88,31 +85,31 @@ func CheckPasswordHash(needCheckPassword string, truePassword string) bool {
 
 
 func SendGrpcMessage(uuid int64,receiver int64,message string){
-	flag.Parse()
-	conn, err := grpc.Dial(*addr, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer func(conn *grpc.ClientConn) {
-		err := conn.Close()
-		if err != nil {
-			return
-		}
-	}(conn)
-
-	c := service.NewChatServiceClient(conn)
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := c.Communicate(ctx, &service.RequestMessage{
-		Sender: uuid,
-		Receiver: receiver,
-		Body: message,
-	})
-	if err != nil {
-		log.Fatalf("can't send grpc message: %v", err)
-	}
-	log.Print(r)
+	//flag.Parse()
+	//conn, err := grpc.Dial(*addr, grpc.WithInsecure())
+	//if err != nil {
+	//	log.Fatalf("did not connect: %v", err)
+	//}
+	//defer func(conn *grpc.ClientConn) {
+	//	err := conn.Close()
+	//	if err != nil {
+	//		return
+	//	}
+	//}(conn)
+	//
+	//c := service.NewChatServiceClient(conn)
+	//
+	//ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	//defer cancel()
+	//r, err := c.Communicate(ctx, &service.RequestMessage{
+	//	Sender: uuid,
+	//	Receiver: receiver,
+	//	Body: message,
+	//})
+	//if err != nil {
+	//	log.Fatalf("can't send grpc message: %v", err)
+	//}
+	//log.Print(r)
 }
 
 
