@@ -9,6 +9,7 @@ object RoomPivot {
         if (RoomActor.isRoomExist(request.getRoomID)){
             // TODO
             // fix logic
+            // we can use null judge instead of exist judge
             JoinRoomResponse
                 .newBuilder()
                 .setStatus()

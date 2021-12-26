@@ -11,8 +11,8 @@ message JoinRoomRequest{
 
 message JoinRoomResponse{
   bool status = 1;
-  string roomWebsocketURL = 2;
-  string roomName = 3;
+  string roomName = 2;
+  string roomWebsocketURL = 3;
   repeated int64 userList = 4;
 }
 
