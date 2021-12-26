@@ -1,7 +1,10 @@
 package com.thyme.actor.room
 
 import akka.actor.{Actor, ActorRef, Props}
-import com.thyme.extension.Tools
+import com.thyme.extension.Tools.{roomIDMapToActorPath, system}
+
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
 
 class RoomActor(val roomID: Long,
                 var roomName: String) extends Actor {
@@ -72,7 +75,22 @@ class RoomActor(val roomID: Long,
 object RoomActor {
 
     def apply(roomID: Long): ActorRef = {
-        Tools.system.actorOf(Props[RoomActor], roomID.toString)
+        val actor = system.actorOf(Props[RoomActor], roomID.toString)
+        roomIDMapToActorPath.put(roomID,actor.path)
+        actor
+    }
+
+    def isRoomExist(roomID:Long): Boolean ={
+        roomIDMapToActorPath.contains(roomID)
+    }
+
+    def getActorWithRoomID(roomID:Long): ActorRef ={
+        // TODO use roomID to get a RoomActor
+        // if this actor exist ,return this actor;
+        // if it isn't exist, think about two possible
+        // 1. room exist, but it be saved in database and not in memory
+        // 2. room unExist,you should return null to the caller
+        null
     }
 
 }
