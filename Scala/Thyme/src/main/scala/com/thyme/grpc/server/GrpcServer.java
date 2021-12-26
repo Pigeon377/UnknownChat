@@ -1,12 +1,15 @@
 package com.thyme.grpc.server;
 
+import com.thyme.grpc.ChatGrpc;
+import com.thyme.grpc.Grpc;
+import com.thyme.pivot.RoomPivot;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
 
-public class GrpcServer extends ChatServiceGrpc.ChatServiceImplBase {
+public class GrpcServer extends ChatGrpc.ChatImplBase {
 
     private final int port;
 
@@ -23,16 +26,16 @@ public class GrpcServer extends ChatServiceGrpc.ChatServiceImplBase {
     }
 
 
-    static class GrpcImpl extends ChatServiceGrpc.ChatServiceImplBase {
+    static class GrpcImpl extends ChatGrpc.ChatImplBase {
         @Override
-        public void communicate(Grpc.RequestMessage request, StreamObserver<Grpc.ResponseMessage> responseObserver) {
-            System.out.println("body: " + request.getBody() + "\nsender: " + request.getSender() + "\nreceiver: " + request.getReceiver() + "\n");
-            Grpc.ResponseMessage res = Grpc.ResponseMessage
-                    .newBuilder()
-                    .setRoomID(114514)
-                    .setStatus(true)
-                    .build();
-            responseObserver.onNext(res);
+        public void createRoom(Grpc.CreateRoomRequest request, StreamObserver<Grpc.CreateRoomResponse> responseObserver) {
+            responseObserver.onNext(RoomPivot.createRoom(request));
+            responseObserver.onCompleted();
+        }
+
+        @Override
+        public void joinRoom(Grpc.JoinRoomRequest request, StreamObserver<Grpc.JoinRoomResponse> responseObserver) {
+            responseObserver.onNext(RoomPivot.joinRoom(request));
             responseObserver.onCompleted();
         }
     }

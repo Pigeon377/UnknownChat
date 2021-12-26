@@ -517,24 +517,24 @@ public final class Grpc {
     boolean getStatus();
 
     /**
-     * <code>optional string roomWebsocketURL = 2;</code>
-     */
-    java.lang.String getRoomWebsocketURL();
-    /**
-     * <code>optional string roomWebsocketURL = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getRoomWebsocketURLBytes();
-
-    /**
-     * <code>optional string roomName = 3;</code>
+     * <code>optional string roomName = 2;</code>
      */
     java.lang.String getRoomName();
     /**
-     * <code>optional string roomName = 3;</code>
+     * <code>optional string roomName = 2;</code>
      */
     com.google.protobuf.ByteString
         getRoomNameBytes();
+
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    java.lang.String getRoomWebsocketURL();
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoomWebsocketURLBytes();
 
     /**
      * <code>repeated int64 userList = 4;</code>
@@ -562,8 +562,8 @@ public final class Grpc {
     }
     private JoinRoomResponse() {
       status_ = false;
-      roomWebsocketURL_ = "";
       roomName_ = "";
+      roomWebsocketURL_ = "";
       userList_ = java.util.Collections.emptyList();
     }
 
@@ -600,13 +600,13 @@ public final class Grpc {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              roomWebsocketURL_ = s;
+              roomName_ = s;
               break;
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              roomName_ = s;
+              roomWebsocketURL_ = s;
               break;
             }
             case 32: {
@@ -666,44 +666,10 @@ public final class Grpc {
       return status_;
     }
 
-    public static final int ROOMWEBSOCKETURL_FIELD_NUMBER = 2;
-    private volatile java.lang.Object roomWebsocketURL_;
-    /**
-     * <code>optional string roomWebsocketURL = 2;</code>
-     */
-    public java.lang.String getRoomWebsocketURL() {
-      java.lang.Object ref = roomWebsocketURL_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        roomWebsocketURL_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string roomWebsocketURL = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getRoomWebsocketURLBytes() {
-      java.lang.Object ref = roomWebsocketURL_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        roomWebsocketURL_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ROOMNAME_FIELD_NUMBER = 3;
+    public static final int ROOMNAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object roomName_;
     /**
-     * <code>optional string roomName = 3;</code>
+     * <code>optional string roomName = 2;</code>
      */
     public java.lang.String getRoomName() {
       java.lang.Object ref = roomName_;
@@ -718,7 +684,7 @@ public final class Grpc {
       }
     }
     /**
-     * <code>optional string roomName = 3;</code>
+     * <code>optional string roomName = 2;</code>
      */
     public com.google.protobuf.ByteString
         getRoomNameBytes() {
@@ -728,6 +694,40 @@ public final class Grpc {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         roomName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ROOMWEBSOCKETURL_FIELD_NUMBER = 3;
+    private volatile java.lang.Object roomWebsocketURL_;
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    public java.lang.String getRoomWebsocketURL() {
+      java.lang.Object ref = roomWebsocketURL_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        roomWebsocketURL_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string roomWebsocketURL = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoomWebsocketURLBytes() {
+      java.lang.Object ref = roomWebsocketURL_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        roomWebsocketURL_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -773,11 +773,11 @@ public final class Grpc {
       if (status_ != false) {
         output.writeBool(1, status_);
       }
-      if (!getRoomWebsocketURLBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, roomWebsocketURL_);
-      }
       if (!getRoomNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, roomName_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, roomName_);
+      }
+      if (!getRoomWebsocketURLBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, roomWebsocketURL_);
       }
       if (getUserListList().size() > 0) {
         output.writeUInt32NoTag(34);
@@ -797,11 +797,11 @@ public final class Grpc {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, status_);
       }
-      if (!getRoomWebsocketURLBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, roomWebsocketURL_);
-      }
       if (!getRoomNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, roomName_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, roomName_);
+      }
+      if (!getRoomWebsocketURLBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, roomWebsocketURL_);
       }
       {
         int dataSize = 0;
@@ -835,10 +835,10 @@ public final class Grpc {
       boolean result = true;
       result = result && (getStatus()
           == other.getStatus());
-      result = result && getRoomWebsocketURL()
-          .equals(other.getRoomWebsocketURL());
       result = result && getRoomName()
           .equals(other.getRoomName());
+      result = result && getRoomWebsocketURL()
+          .equals(other.getRoomWebsocketURL());
       result = result && getUserListList()
           .equals(other.getUserListList());
       return result;
@@ -854,10 +854,10 @@ public final class Grpc {
       hash = (37 * hash) + STATUS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getStatus());
-      hash = (37 * hash) + ROOMWEBSOCKETURL_FIELD_NUMBER;
-      hash = (53 * hash) + getRoomWebsocketURL().hashCode();
       hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
       hash = (53 * hash) + getRoomName().hashCode();
+      hash = (37 * hash) + ROOMWEBSOCKETURL_FIELD_NUMBER;
+      hash = (53 * hash) + getRoomWebsocketURL().hashCode();
       if (getUserListCount() > 0) {
         hash = (37 * hash) + USERLIST_FIELD_NUMBER;
         hash = (53 * hash) + getUserListList().hashCode();
@@ -981,9 +981,9 @@ public final class Grpc {
         super.clear();
         status_ = false;
 
-        roomWebsocketURL_ = "";
-
         roomName_ = "";
+
+        roomWebsocketURL_ = "";
 
         userList_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1012,8 +1012,8 @@ public final class Grpc {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.status_ = status_;
-        result.roomWebsocketURL_ = roomWebsocketURL_;
         result.roomName_ = roomName_;
+        result.roomWebsocketURL_ = roomWebsocketURL_;
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           userList_ = java.util.Collections.unmodifiableList(userList_);
           bitField0_ = (bitField0_ & ~0x00000008);
@@ -1064,12 +1064,12 @@ public final class Grpc {
         if (other.getStatus() != false) {
           setStatus(other.getStatus());
         }
-        if (!other.getRoomWebsocketURL().isEmpty()) {
-          roomWebsocketURL_ = other.roomWebsocketURL_;
-          onChanged();
-        }
         if (!other.getRoomName().isEmpty()) {
           roomName_ = other.roomName_;
+          onChanged();
+        }
+        if (!other.getRoomWebsocketURL().isEmpty()) {
+          roomWebsocketURL_ = other.roomWebsocketURL_;
           onChanged();
         }
         if (!other.userList_.isEmpty()) {
@@ -1135,78 +1135,9 @@ public final class Grpc {
         return this;
       }
 
-      private java.lang.Object roomWebsocketURL_ = "";
-      /**
-       * <code>optional string roomWebsocketURL = 2;</code>
-       */
-      public java.lang.String getRoomWebsocketURL() {
-        java.lang.Object ref = roomWebsocketURL_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          roomWebsocketURL_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string roomWebsocketURL = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getRoomWebsocketURLBytes() {
-        java.lang.Object ref = roomWebsocketURL_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          roomWebsocketURL_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string roomWebsocketURL = 2;</code>
-       */
-      public Builder setRoomWebsocketURL(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        roomWebsocketURL_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string roomWebsocketURL = 2;</code>
-       */
-      public Builder clearRoomWebsocketURL() {
-        
-        roomWebsocketURL_ = getDefaultInstance().getRoomWebsocketURL();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string roomWebsocketURL = 2;</code>
-       */
-      public Builder setRoomWebsocketURLBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        roomWebsocketURL_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object roomName_ = "";
       /**
-       * <code>optional string roomName = 3;</code>
+       * <code>optional string roomName = 2;</code>
        */
       public java.lang.String getRoomName() {
         java.lang.Object ref = roomName_;
@@ -1221,7 +1152,7 @@ public final class Grpc {
         }
       }
       /**
-       * <code>optional string roomName = 3;</code>
+       * <code>optional string roomName = 2;</code>
        */
       public com.google.protobuf.ByteString
           getRoomNameBytes() {
@@ -1237,7 +1168,7 @@ public final class Grpc {
         }
       }
       /**
-       * <code>optional string roomName = 3;</code>
+       * <code>optional string roomName = 2;</code>
        */
       public Builder setRoomName(
           java.lang.String value) {
@@ -1250,7 +1181,7 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>optional string roomName = 3;</code>
+       * <code>optional string roomName = 2;</code>
        */
       public Builder clearRoomName() {
         
@@ -1259,7 +1190,7 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>optional string roomName = 3;</code>
+       * <code>optional string roomName = 2;</code>
        */
       public Builder setRoomNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1269,6 +1200,75 @@ public final class Grpc {
   checkByteStringIsUtf8(value);
         
         roomName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object roomWebsocketURL_ = "";
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public java.lang.String getRoomWebsocketURL() {
+        java.lang.Object ref = roomWebsocketURL_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          roomWebsocketURL_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoomWebsocketURLBytes() {
+        java.lang.Object ref = roomWebsocketURL_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          roomWebsocketURL_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public Builder setRoomWebsocketURL(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        roomWebsocketURL_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public Builder clearRoomWebsocketURL() {
+        
+        roomWebsocketURL_ = getDefaultInstance().getRoomWebsocketURL();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string roomWebsocketURL = 3;</code>
+       */
+      public Builder setRoomWebsocketURLBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        roomWebsocketURL_ = value;
         onChanged();
         return this;
       }
@@ -2977,8 +2977,8 @@ public final class Grpc {
     java.lang.String[] descriptorData = {
       "\n\ngrpc.proto\022\004grpc\"/\n\017JoinRoomRequest\022\016\n" +
       "\006roomID\030\001 \001(\003\022\014\n\004uuid\030\002 \001(\003\"`\n\020JoinRoomR" +
-      "esponse\022\016\n\006status\030\001 \001(\010\022\030\n\020roomWebsocket" +
-      "URL\030\002 \001(\t\022\020\n\010roomName\030\003 \001(\t\022\020\n\010userList\030" +
+      "esponse\022\016\n\006status\030\001 \001(\010\022\020\n\010roomName\030\002 \001(" +
+      "\t\022\030\n\020roomWebsocketURL\030\003 \001(\t\022\020\n\010userList\030" +
       "\004 \003(\003\"7\n\021CreateRoomRequest\022\020\n\010userList\030\001" +
       " \003(\003\022\020\n\010roomName\030\002 \001(\t\"b\n\022CreateRoomResp" +
       "onse\022\016\n\006status\030\001 \001(\010\022\020\n\010roomName\030\002 \001(\t\022\030" +
@@ -3012,7 +3012,7 @@ public final class Grpc {
     internal_static_grpc_JoinRoomResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_grpc_JoinRoomResponse_descriptor,
-        new java.lang.String[] { "Status", "RoomWebsocketURL", "RoomName", "UserList", });
+        new java.lang.String[] { "Status", "RoomName", "RoomWebsocketURL", "UserList", });
     internal_static_grpc_CreateRoomRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_grpc_CreateRoomRequest_fieldAccessorTable = new
