@@ -30,7 +30,8 @@ func routerInit(router *gin.Engine) {
 	}
 	chat := r.Group("/chat")
 	{
-		chat.POST("/message", chat3.SendMessage)
+		chat.POST("/join", chat3.JoinRoom)
+		chat.POST("/create", chat3.CreateRoom)
 	}
 
 
