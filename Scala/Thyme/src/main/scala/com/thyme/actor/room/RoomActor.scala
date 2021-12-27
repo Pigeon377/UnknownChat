@@ -3,21 +3,20 @@ package com.thyme.actor.room
 import akka.actor.{Actor, ActorRef, Props}
 import com.thyme.extension.Tools.{roomIDMapToActorPath, system}
 
-import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 class RoomActor(val roomID: Long,
-                var roomName: String) extends Actor {
+                var roomName: String,
+                val creatorUUID: Long) extends Actor {
 
     val userList = new java.util.LinkedList[Long]()
-
 
     override def receive: Receive = {
         case AddNewUser(uuid) => this.addNewUser(uuid)
         case RemoveUser(uuid) => this.removeUser(uuid)
         case IsUserExist(uuid) => this.isInUserList(uuid)
         case ChangeRoomName(newName) => this.changeRoomName(newName)
-        case BroadcastMessage(message) => broadcastMessage(message)
+        case BroadcastMessage(message) => this.broadcastMessage(message)
     }
 
 
@@ -74,17 +73,17 @@ class RoomActor(val roomID: Long,
 
 object RoomActor {
 
-    def apply(roomID: Long): ActorRef = {
-        val actor = system.actorOf(Props[RoomActor], roomID.toString)
-        roomIDMapToActorPath.put(roomID,actor.path)
+    def apply(roomID: Long, roomName: String, creatorUUID: Long): ActorRef = {
+        val actor = system.actorOf(Props(new RoomActor(roomID = roomID, roomName = roomName, creatorUUID = creatorUUID)), roomID.toString)
+        roomIDMapToActorPath.put(roomID, actor.path)
         actor
     }
 
-    def isRoomExist(roomID:Long): Boolean ={
+    def isRoomExist(roomID: Long): Boolean = {
         roomIDMapToActorPath.contains(roomID)
     }
 
-    def getActorWithRoomID(roomID:Long): ActorRef ={
+    def getActorWithRoomID(roomID: Long): ActorRef = {
         // TODO use roomID to get a RoomActor
         // if this actor exist ,return this actor;
         // if it isn't exist, think about two possible
