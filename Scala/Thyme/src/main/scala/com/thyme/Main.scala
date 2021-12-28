@@ -1,6 +1,7 @@
 package com.thyme
 
-import com.thyme.extension.Tools.rpcPort
+import com.thyme.actor.room.RoomActor
+import com.thyme.extension.Tools.{rpcPort, system}
 import com.thyme.grpc.server.GrpcServer
 
 object Main {

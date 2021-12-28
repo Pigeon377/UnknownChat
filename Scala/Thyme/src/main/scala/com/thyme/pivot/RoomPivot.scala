@@ -12,18 +12,18 @@ object RoomPivot {
             // we can use null judge instead of exist judge
             JoinRoomResponse
                 .newBuilder()
-                .setStatus()
-                .setRoomName()
-                .setRoomWebsocketURL()
-                .setUserList()
+                .setStatus(true)
+                .setRoomName("下北泽")
+                .setRoomWebsocketURL("")
+//                .setUserList()
                 .build()
         }else{
             JoinRoomResponse
                 .newBuilder()
-                .setStatus()
-                .setRoomName()
-                .setRoomWebsocketURL()
-                .setUserList()
+                .setStatus(true)
+                .setRoomName("下北泽")
+                .setRoomWebsocketURL("")
+//                .setUserList()
                 .build()
         }
 
@@ -32,10 +32,10 @@ object RoomPivot {
     def createRoom(request: CreateRoomRequest): CreateRoomResponse = {
 
         CreateRoomResponse.newBuilder()
-            .setStatus()
-            .setRoomName()
-            .setRoomWebsocketURL()
-            .setUserList()
+            .setStatus(true)
+            .setRoomName("")
+            .setRoomWebsocketURL("")
+//            .setUserList()
             .build()
     }
 

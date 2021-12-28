@@ -20,7 +20,18 @@ class RoomActor(val roomID: Long,
     }
 
 
+    /**
+     * when you want to check user is pass check or not
+     * use ExtensionFunction.checkTokenNumber(uuid) equals check the checkNumber is right
+     * message should like this
+     *  {
+     *      "uuid":xxx,
+     *      "message" : message_body,
+     *      "check_number":xxx
+     *  }
+     * */
     def broadcastMessage(message: String): Boolean = {
+
         //TODO
         // broadcast message in this room
         // we should use a websocket actor / user actor to deal with websocket connect user
