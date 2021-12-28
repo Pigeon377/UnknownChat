@@ -23,6 +23,9 @@ class RoomActor(val roomID: Long,
     def broadcastMessage(message: String): Boolean = {
         //TODO
         // broadcast message in this room
+        // we should use a websocket actor / user actor to deal with websocket connect user
+        // this method only need deal broadcast and tell websocket actor / user actor
+        // need push a new message to client
         true
     }
 
