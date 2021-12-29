@@ -28,17 +28,8 @@ message CreateRoomResponse{
   repeated int64 userList = 4;
 }
 
-// return this request when user is login!
-message GetCheckNumberRequest{
-  int64 uuid = 1;
-}
-
-message GetCheckNumberResponse{
-  int64 checkNumber = 1;
-}
 
 service Chat{
   rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse){};
   rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse){};
-  rpc GetCheckNumber(GetCheckNumberRequest) returns (GetCheckNumberResponse){};
 }
