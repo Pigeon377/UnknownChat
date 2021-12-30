@@ -10,7 +10,7 @@ object Tools {
 
     val system: ActorSystem = ActorSystem("Thyme")
 
-    val roomIDMapToActorPath = new mutable.HashMap[Long,ActorPath]():
+    val roomIDMapToActorPath = new mutable.HashMap[Long,ActorPath]()
 
 
 }

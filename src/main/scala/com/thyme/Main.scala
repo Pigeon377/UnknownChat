@@ -2,13 +2,10 @@ package com.thyme
 
 import com.thyme.actor.room.RoomActor
 import com.thyme.extension.Tools.{rpcPort, system}
-import com.thyme.grpc.server.GrpcServer
 
 object Main {
 
     def main(args:Array[String]): Unit ={
-        val server =  new GrpcServer(rpcPort)
-        server.start()
         // TODO
         // a user only need one websocket connect
         // we can push message to the user with
