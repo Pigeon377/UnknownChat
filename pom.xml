@@ -49,18 +49,11 @@
             <artifactId>akka-actor-testkit-typed_${scala.binary.version}</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--com.thyme.grpc need-->
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-netty-shaded</artifactId>
-            <version>1.43.0</version>
-        </dependency>
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
             <version>1.3.5</version>
         </dependency>
-        <!-- com.thyme.grpc need-->
         <!-- slf4j bind log4j -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
