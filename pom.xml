@@ -15,6 +15,7 @@
         <scala.version>2.13.7</scala.version>
         <scala.maven.version>2.15.2</scala.maven.version>
         <scala.binary.version>2.13</scala.binary.version>
+        <akka.version>2.6.8</akka.version>
     </properties>
 
     <dependencyManagement>
@@ -23,6 +24,13 @@
                 <groupId>com.typesafe.akka</groupId>
                 <artifactId>akka-bom_${scala.binary.version}</artifactId>
                 <version>2.6.17</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-http-bom_${scala.binary.version}</artifactId>
+                <version>10.2.7</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -42,10 +50,6 @@
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor-typed_${scala.binary.version}</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-actor-testkit-typed_${scala.binary.version}</artifactId>
             <scope>test</scope>
         </dependency>
@@ -62,6 +66,20 @@
             <scope>compile</scope>
         </dependency>
         <!-- slf4j bind log4j -->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor-typed_${scala.binary.version}</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-stream_${scala.binary.version}</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-http_${scala.binary.version}</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
