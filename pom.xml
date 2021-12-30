@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- 包含了scala打jar包 和 protoc插件的暂时的祖传pom-->
     <!--    终于成功的在两台机子上跑grpc了 芜湖！！！-->
+    <!--    追记 跑您马grpc 为什么不用akka-http呢-->
     <groupId>org.thyme</groupId>
     <artifactId>Thyme</artifactId>
     <version>0.0.0</version>
@@ -49,25 +49,10 @@
             <artifactId>akka-actor-testkit-typed_${scala.binary.version}</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>3.19.1</version>
-        </dependency>
         <!--com.thyme.grpc need-->
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
-            <version>1.43.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-protobuf</artifactId>
-            <version>1.43.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-stub</artifactId>
             <version>1.43.0</version>
         </dependency>
         <dependency>
@@ -97,26 +82,7 @@
         </extensions>
         <!-- add org.scala-tools allow you create scala file in source root directory -->
         <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:3.0.0-beta-4:exe:${os.detected.classifier}
-                    </protocArtifact>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:0.15.0:exe:${os.detected.classifier}</pluginArtifact>
-                    <pluginId>grpc</pluginId>
-                    <protoSourceRoot>src/main/resources/proto</protoSourceRoot>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
