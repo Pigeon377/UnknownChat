@@ -4,6 +4,7 @@ import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
 import com.thyme.actor.room.RoomActor
+import com.thyme.database.MongoExtensions
 import com.thyme.extension.Tools.{rpcPort, system}
 import com.thyme.router.RouterRegister
 import com.thyme.router.auth.AuthLogin
