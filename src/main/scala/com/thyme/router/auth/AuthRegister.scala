@@ -10,29 +10,31 @@ import scala.concurrent.ExecutionContext
 
 object AuthRegister {
 
-    case class TokenResponse(status:Int,message:String,data:Map[String,Map[String,String]])
+    case class AuthRegisterResponse(status:Int, message:String, data:Map[String,String])
 
 
-    implicit val tokenResponseFormat: RootJsonFormat[TokenResponse] = jsonFormat3(TokenResponse)
+    implicit val tokenResponseFormat: RootJsonFormat[AuthRegisterResponse] = jsonFormat3(AuthRegisterResponse)
 
 
-    def authRouter(implicit ec: ExecutionContext): Route = {
+    def authRegister(implicit ec: ExecutionContext): Route = {
         post {
             path("register") {
                 formFieldMap { formParam =>
                     if (formParam.contains("name") && formParam.contains("mailbox") && formParam.contains("password")) {
+                        //TODO
+                        // put user message in database
                         complete(StatusCodes.Accepted, HttpEntity(
                             ContentTypes.`application/json`,
-                            TokenResponse(
+                            AuthRegisterResponse(
                                 status = 1,
                                 "Succeed",
-                                Map("token"->Map("114514"->"1919810","114514"->"11451491"))
+                                Map()
                             ).toJson.toString
                         ))
                     }else{
                         complete(StatusCodes.Accepted, HttpEntity(
                             ContentTypes.`application/json`,
-                            TokenResponse(
+                            AuthRegisterResponse(
                                 status = 0,
                                 "InvalidArgument",
                                 Map()

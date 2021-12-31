@@ -3,6 +3,7 @@ package com.thyme.router.auth
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import com.thyme.extension.ExtensionFunction
 import spray.json.DefaultJsonProtocol.{IntJsonFormat, StringJsonFormat, jsonFormat3, mapFormat}
 import spray.json.{RootJsonFormat, enrichAny}
 
@@ -10,29 +11,29 @@ import scala.concurrent.ExecutionContext
 
 object AuthLogin {
 
-    case class TokenResponse(status:Int,message:String,data:Map[String,Map[String,String]])
+    case class AuthLoginResponse(status: Int, message: String, data: Map[String,String])
 
+    implicit val tokenResponseFormat: RootJsonFormat[AuthLoginResponse] = jsonFormat3(AuthLoginResponse)
 
-    implicit val tokenResponseFormat: RootJsonFormat[TokenResponse] = jsonFormat3(TokenResponse)
-
-
-    def authRouter(implicit ec: ExecutionContext): Route = {
+    def authLogin(implicit ec: ExecutionContext): Route = {
         post {
             path("login") {
                 formFieldMap { formParam =>
                     if (formParam.contains("mailbox") && formParam.contains("password")) {
+                        //TODO
+                        // check user password and mailbox from database
                         complete(StatusCodes.Accepted, HttpEntity(
                             ContentTypes.`application/json`,
-                            TokenResponse(
+                            AuthLoginResponse(
                                 status = 1,
                                 "Succeed",
-                                null
+                                Map("token" -> ExtensionFunction.generateJwtToken(114514))
                             ).toJson.toString
                         ))
-                    }else{
+                    } else {
                         complete(StatusCodes.Accepted, HttpEntity(
                             ContentTypes.`application/json`,
-                            TokenResponse(
+                            AuthLoginResponse(
                                 status = 0,
                                 "InvalidArgument",
                                 Map()

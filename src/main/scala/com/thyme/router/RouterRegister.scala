@@ -1,23 +1,26 @@
 package com.thyme.router
 
-import akka.actor.ActorSystem
-import akka.http.scaladsl.server.Directives.pathPrefix
-import akka.http.scaladsl.server.Route
-import com.thyme.router.auth.AuthLogin
+import akka.http.scaladsl.server.Directives.{concat,pathPrefix}
+import akka.http.scaladsl.server.{Directives, Route}
+import com.thyme.router.auth.{AuthLogin, AuthRegister}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.tools.nsc.interactive.Pickler.TildeDecorator
 
 object RouterRegister {
     def registerRouter(implicit ex: ExecutionContext): Route = {
-        pathPrefix("api"){
-            routerAuth()
+        pathPrefix("api") {
+            authRouter()
         }
     }
 
-    private def routerAuth(): Route = {
-        pathPrefix ("auth"){
-            AuthLogin.authRouter
+    private def authRouter(): Route = {
+        pathPrefix("auth") {
+           concat(
+                AuthLogin.authLogin,
+                AuthRegister.authRegister
+            )
         }
     }
 }

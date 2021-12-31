@@ -84,6 +84,12 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-http-spray-json_${scala.binary.version}</artifactId>
         </dependency>
+        <!--jwt-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.18.2</version>
+        </dependency>
     </dependencies>
 
     <build>
