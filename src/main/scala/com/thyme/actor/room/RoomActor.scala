@@ -17,6 +17,7 @@ class RoomActor(val roomID: Long,
         case IsUserExist(uuid) => this.isInUserList(uuid)
         case ChangeRoomName(newName) => this.changeRoomName(newName)
         case BroadcastMessage(message) => this.broadcastMessage(message)
+        case _ => println("[Warning!]   Unknown Message in RoomActor receive method")
     }
 
 
