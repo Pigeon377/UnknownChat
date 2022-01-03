@@ -1,44 +1,30 @@
 package com.thyme
 
-import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
-import org.bson.types.ObjectId
-import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
-import org.mongodb.scala.bson.codecs.Macros._
-import org.mongodb.scala.model.{IndexOptions, Indexes}
-import org.mongodb.scala.{Document, MongoClient}
+import akka.actor.Props
+import akka.pattern.ask
+import akka.util.Timeout
+import com.mongodb.client.model.Indexes
+import com.thyme.actor.database.MongoTransactionActor.userCollection
+import com.thyme.actor.database.{InsertUser, MongoTransactionActor}
+import com.thyme.extension.Tools.system
+import org.mongodb.scala.model.IndexOptions
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 
 object Test {
+
+    implicit val timeout: Timeout = 10 seconds
+
     def start(): Unit = {
-        val codecRegistry = fromRegistries(fromProviders(classOf[Person]), DEFAULT_CODEC_REGISTRY)
-        val mongoClient = MongoClient()
-        val database = mongoClient.getDatabase("test").withCodecRegistry(codecRegistry)
-        val collection = database.getCollection("thyme")
-        Await.result(
-        collection.createIndex(Indexes.ascending("uuid"),IndexOptions().unique(true)).toFuture()
-        ,10 seconds)
-        //        val person = Person("114514", 1919810)
-        // !must use sync method ,otherwise cant finish any operation!
-        //        println(Await.result(collection.insertOne(person).toFuture(), 10 seconds))
-
-        Await.result(collection.insertOne(Document(
-            "_id" -> new ObjectId,
-            "uuid"->114514,
-            "name" -> "野兽前辈",
-            "age" -> 1919810
-        )).toFuture(), 7 second)
-        Await.result(collection.find().toFuture(), 7 seconds).foreach(println)
+        Await.result(userCollection.createIndex(Indexes.ascending("mailbox"), IndexOptions().unique(true)).toFuture(), 10 seconds)
+        val databaseActor = system.actorOf(Props[MongoTransactionActor])
+        (databaseActor ? InsertUser("野兽前辈", "114514", "1919810")).onComplete(
+            x => println(x)
+        )
     }
 }
 
 
-object Person {
-    def apply(name: String, age: Int): Person = {
-        Person(new ObjectId(), name, age)
-    }
-}
-
-case class Person(_id: ObjectId, name: String, age: Int)

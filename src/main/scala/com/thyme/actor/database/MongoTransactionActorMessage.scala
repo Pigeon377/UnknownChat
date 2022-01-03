@@ -6,7 +6,7 @@ import com.thyme.model.User
 // use case class to deliver message
 // add new case class in this file when you need define a new operation in database
 
-case class InsertUser(uuid:Long,userName:String,password:String,friends:List[Long])
+case class InsertUser(userName:String,mailbox:String,password:String)
 
 case class QueryUser(uuid:Long)
 
