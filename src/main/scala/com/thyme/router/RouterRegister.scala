@@ -18,8 +18,8 @@ object RouterRegister {
     private def authRouter(): Route = {
         pathPrefix("auth") {
            concat(
-                AuthLogin.authLogin,
-                AuthRegister.authRegister
+                AuthLogin.controller,
+                AuthRegister.controller
             )
         }
     }

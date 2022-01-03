@@ -15,7 +15,7 @@ object AuthLogin {
 
     implicit val tokenResponseFormat: RootJsonFormat[AuthLoginResponse] = jsonFormat3(AuthLoginResponse)
 
-    def authLogin(implicit ec: ExecutionContext): Route = {
+    def controller(implicit ec: ExecutionContext): Route = {
         post {
             path("login") {
                 formFieldMap { formParam =>

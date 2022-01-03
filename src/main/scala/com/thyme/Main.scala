@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContextExecutor
 object Main {
 
     def main(args: Array[String]): Unit = {
-        implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
+        implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "AkkaHttp")
         implicit val executionContext: ExecutionContextExecutor = system.executionContext
         Test.start()
         val bindingFuture = Http()
