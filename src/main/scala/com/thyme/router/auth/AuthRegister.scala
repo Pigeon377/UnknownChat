@@ -12,7 +12,7 @@ import com.thyme.model.User
 import spray.json.DefaultJsonProtocol.{IntJsonFormat, StringJsonFormat, jsonFormat3, mapFormat}
 import spray.json.{RootJsonFormat, enrichAny}
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
@@ -30,25 +30,17 @@ object AuthRegister {
             path("register") {
                 formFieldMap { formParam =>
                     if (formParam.contains("name") && formParam.contains("mailbox") && formParam.contains("password")) {
-                        //TODO
-                        // put user message in database
-                        var status: Boolean = false
-                        // maybe we can find a new method to use val instead of this var?
-                        (mongoTransactionActor ? InsertUser(
-                            userName = formParam("name"), mailbox = formParam("mailbox"), password = formParam("password")
-                        )).onComplete { mes =>
-                            status = mes.get match {
-                                case InsertSucceed() => true
-                                case UserExist() => false
-                            }
+                        Await.result(mongoTransactionActor ? InsertUser(
+                            mailbox = formParam("mailbox"), userName = formParam("name"), password = formParam("password")
+                        ), 7 seconds) match {
+                            case InsertSucceed() => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
+                                AuthRegisterResponse(status = 1, message = "Succeed", data = Map()).toJson.toString))
+                            case UserExist() => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
+                                AuthRegisterResponse(status = 0, message = "UserExist", data = Map()).toJson.toString))
+                            case e:Exception =>
+                                e.printStackTrace()
+                                complete(StatusCodes.InternalServerError)
                         }
-                        println(status)
-                        complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
-                            string = if (status) {
-                                AuthRegisterResponse(status = 1, message = "Succeed", data = Map()).toJson.toString
-                            } else {
-                                AuthRegisterResponse(status = 0, message = "UserExist", data = Map()).toJson.toString
-                            }))
                     } else {
                         complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                             AuthRegisterResponse(status = 0, "InvalidArgument", Map()).toJson.toString))

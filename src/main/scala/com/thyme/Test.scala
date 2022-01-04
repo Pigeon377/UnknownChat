@@ -16,10 +16,6 @@ object Test {
     implicit val timeout: Timeout = 10 seconds
 
     def start(): Unit = {
-        val databaseActor = system.actorOf(Props[MongoTransactionActor])
-        (databaseActor ? QueryUser( "114514")).onComplete(
-            x => println(x.get)
-        )
     }
 }
 

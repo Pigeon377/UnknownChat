@@ -31,10 +31,10 @@ class MongoTransactionActor extends Actor {
          * succeed insert user => true
          * failed insert user => false
          * */
-        case InsertUser(userName, mailbox, password) =>
+        case InsertUser(mailbox,userName, password) =>
             executor(userCollection.find(equal("mailbox", mailbox)).first()) match {
                 case List() => // can't find this document
-                    executor(userCollection.insertOne(User(userName = userName, mailbox = mailbox, password = password)))
+                    executor(userCollection.insertOne(User(mailbox = mailbox, userName = userName,password = password)))
                     sender() ! InsertSucceed()
                 case _ => sender() ! UserExist()
             }
