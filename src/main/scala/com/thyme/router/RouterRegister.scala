@@ -1,8 +1,8 @@
 package com.thyme.router
 
-import akka.http.scaladsl.server.Directives.{concat,pathPrefix}
+import akka.http.scaladsl.server.Directives.{concat, pathPrefix}
 import akka.http.scaladsl.server.{Directives, Route}
-import com.thyme.router.auth.{AuthLogin, AuthRegister}
+import com.thyme.router.auth.{AuthLogin, AuthRegister, AuthUpdate}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -17,9 +17,10 @@ object RouterRegister {
 
     private def authRouter(): Route = {
         pathPrefix("auth") {
-           concat(
+            concat(
                 AuthLogin.controller,
-                AuthRegister.controller
+                AuthRegister.controller,
+                AuthUpdate.controller
             )
         }
     }
