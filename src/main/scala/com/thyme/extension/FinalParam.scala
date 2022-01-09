@@ -3,7 +3,7 @@ package com.thyme.extension
 import akka.actor.{ActorPath, ActorSystem}
 import scala.collection.mutable
 
-object Tools {
+object FinalParam {
 
     val rpcPort = 50051
 

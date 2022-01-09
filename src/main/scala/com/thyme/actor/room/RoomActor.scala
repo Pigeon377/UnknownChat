@@ -1,7 +1,7 @@
 package com.thyme.actor.room
 
 import akka.actor.{Actor, ActorRef, Props}
-import com.thyme.extension.Tools.{roomIDMapToActorPath, system}
+import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
 
 import scala.language.postfixOps
 

@@ -5,7 +5,7 @@ import akka.pattern.ask
 import akka.util.Timeout
 import com.thyme.actor.database.{InsertUser, MongoTransactionActor, QueryUser}
 import com.thyme.extension.ExtensionFunction
-import com.thyme.extension.Tools.system
+import com.thyme.extension.FinalParam.system
 import org.bson.BSONObject
 
 import scala.concurrent.ExecutionContext.Implicits.global
