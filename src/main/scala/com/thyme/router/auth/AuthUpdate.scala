@@ -66,7 +66,7 @@ object AuthUpdate {
                             ContentTypes.`application/json`,
                             AuthLoginResponse(
                                 status = 0,
-                                "InvalidArgument",
+                                "UnLoginUser",
                                 Map()
                             ).toJson.toString
                         ))

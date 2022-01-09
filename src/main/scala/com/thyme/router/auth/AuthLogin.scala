@@ -32,8 +32,7 @@ object AuthLogin {
                         Await.result(mongoTransactionActor ? QueryUser(mailbox), 7 seconds) match {
                             case QuerySucceed(user) =>
                                 if (checkPasswordHash(password, user.password)) {
-                                    complete(StatusCodes.Accepted, HttpEntity(
-                                        ContentTypes.`application/json`,
+                                    complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                         AuthLoginResponse(
                                             status = 1,
                                             message = "Succeed",
@@ -41,21 +40,20 @@ object AuthLogin {
                                         ).toJson.toString
                                     ))
                                 } else {
-                                    complete(StatusCodes.Accepted, HttpEntity(
-                                        ContentTypes.`application/json`,
+                                    complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                         AuthLoginResponse(
                                             status = 0,
-                                            "MailboxUnMatchPassword",
-                                            Map()
+                                            message = "MailboxUnMatchPassword",
+                                            data = Map()
                                         ).toJson.toString
                                     ))
                                 }
-                            case UserUnExist() =>complete(StatusCodes.Accepted, HttpEntity(
+                            case UserUnExist() => complete(StatusCodes.Accepted, HttpEntity(
                                 ContentTypes.`application/json`,
                                 AuthLoginResponse(
                                     status = 0,
-                                    "MailboxUnMatchPassword",
-                                    Map()
+                                    message = "MailboxUnMatchPassword",
+                                    data = Map()
                                 ).toJson.toString
                             ))
                         }
