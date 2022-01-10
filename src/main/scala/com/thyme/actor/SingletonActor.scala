@@ -6,5 +6,4 @@ import com.thyme.extension.FinalParam.system
 
 object SingletonActor {
     val mongoTransactionActor: ActorRef = system.actorOf(Props[MongoTransactionActor], "MongoTransactionActor")
-
 }

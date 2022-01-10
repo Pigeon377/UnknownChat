@@ -45,6 +45,8 @@ class MongoTransactionActor extends Actor {
                 case List() => sender() ! UserUnExist()
                 case userList => sender() ! QuerySucceed(userList.head)
             }
+
+
         case UpdateUser(user, operatorCode) =>
             executor(userCollection.find(equal("mailbox", user.mailbox)).first()) match {
                 case List() => sender() ! UserUnExist()
