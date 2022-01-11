@@ -5,22 +5,14 @@ import org.mongodb.scala.bson.ObjectId
 
 object User {
     def apply(userName: String, mailbox: String, password: String): User = {
-        User(_id = new ObjectId,
-            userName = userName,
-            mailbox: String,
-            password = password,
-            friends = List[Long](),
-            rooms = List[Long]())
+        new User(new ObjectId, userName = userName, mailbox, password, List(), List())
     }
 
-    def apply(_id: ObjectId, userName: String, mailbox: String, password: String, friends: List[Long], rooms: List[Long]): User = {
-        User(_id = new ObjectId,
-            userName = userName,
-            mailbox: String,
-            password = password,
-            friends = friends,
-            rooms = rooms)
-    }
 }
 
-case class User(_id: ObjectId, userName: String, mailbox: String, password: String, friends: List[Long], rooms: List[Long])
+class User(val _id: ObjectId = new ObjectId,
+           val userName: String,
+           val mailbox: String,
+           val password: String,
+           val friends: List[ObjectId] = List(),  // Friend's _id
+           val rooms: List[ObjectId] = List())    // room's _id
