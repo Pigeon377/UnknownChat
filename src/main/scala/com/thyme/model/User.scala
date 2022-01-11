@@ -8,6 +8,10 @@ object User {
         new User(new ObjectId, userName = userName, mailbox, password, List(), List())
     }
 
+    def apply(_id:ObjectId,userName: String, mailbox: String, password: String,friends: List[ObjectId],rooms:List[ObjectId]): User = {
+        new User(new ObjectId, userName = userName, mailbox, password, friends,rooms)
+    }
+
 }
 
 class User(val _id: ObjectId = new ObjectId,
