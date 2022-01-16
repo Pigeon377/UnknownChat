@@ -14,7 +14,7 @@ case class QueryUser(mailbox: String)
 // operatorCode =>
 //  0 => update password
 //  1 => update username
-case class UpdateUser(user: User, operatorCode: Int)
+case class UpdateUser(user: User)
 
 
 /** **********************Response*********************** */
