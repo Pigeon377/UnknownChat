@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <!--    终于成功的在两台机子上跑grpc了 芜湖！！！-->
     <!--    追记 跑您马grpc 为什么不用akka-http呢-->
-    <!---   再次追记 nosql约束性太弱 应该使用sql 最理想的方案还是用户信息集中在一个mysql上 其余的信息使用uuid分布式存储于mongodb中->
+    <!---   再次追记 nosql约束性太弱 应该使用sql 最理想的方案还是用户信息集中在一个mysql上 其余的信息使用uuid分布式存储于mongodb中-->
     <groupId>org.thyme</groupId>
     <artifactId>Thyme</artifactId>
     <version>0.0.0</version>
