@@ -1,7 +1,7 @@
 package com.thyme.actor.database
 
 import akka.actor.Actor
-import com.thyme.actor.database.MongoTransactionActor.userCollection
+import com.thyme.actor.database.TransactionActor.userCollection
 import com.thyme.model.User
 import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
 import org.bson.codecs.configuration.CodecRegistry
@@ -17,7 +17,7 @@ import scala.language.postfixOps
 // org.mongodb.scala.bson.codecs.Macros._ need be import
 // otherwise fromProviders will not enjoyed implicit
 // but IDEA will never tell you which package you should import...
-class MongoTransactionActor extends Actor {
+class TransactionActor extends Actor {
     override def receive: Receive = {
 
         case InsertUser(userName, mailbox, password) => {
@@ -34,7 +34,7 @@ class MongoTransactionActor extends Actor {
     }
 }
 
-object MongoTransactionActor {
+object TransactionActor {
     val databaseName: String = "test"
     val codecRegistry: CodecRegistry = fromRegistries(fromProviders(classOf[User]), DEFAULT_CODEC_REGISTRY)
     val mongoClient: MongoClient = MongoClient()

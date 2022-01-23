@@ -1,18 +1,11 @@
 package com.thyme.model
 
-import org.mongodb.scala.bson.ObjectId
-
 object Room {
-    def apply(members: List[ObjectId]): Room = {
-        new Room(new ObjectId,
-            members = members,
-            List()
-        )
+    def apply(uuid:Long,roomName:String,createTime:Long=System.currentTimeMillis()): Room = {
+        new Room(uuid,roomName,createTime)
     }
 }
 
-class Room(val _id: ObjectId,
-           val members: List[ObjectId],
-           val messages: List[ChatMessage]) {
+class Room(val uuid:Long,val roomName:String,val createTime:Long) {
 
 }

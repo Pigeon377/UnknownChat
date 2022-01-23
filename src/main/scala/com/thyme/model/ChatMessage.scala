@@ -1,13 +1,19 @@
 package com.thyme.model
 
-import org.mongodb.scala.bson.ObjectId
 
 object ChatMessage {
-    def apply(sender: ObjectId, body: String): ChatMessage = {
-        new ChatMessage(time = System.currentTimeMillis(), sender = sender, body = body)
-    }
+
+    def apply(uuid:Long,
+              sender: Long,
+              body: String,
+              time: Long=System.currentTimeMillis()): ChatMessage = {
+
+        new ChatMessage(uuid, sender,body,time)
+
+     }
 }
 
-class ChatMessage(val time: Long,
-                  val sender: ObjectId,
-                  val body: String)
+class ChatMessage(val uuid: Long,
+                  val sender: Long, // sender's uuid
+                  val body: String,
+                  val time: Long)
