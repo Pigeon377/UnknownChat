@@ -1,6 +1,7 @@
 package com.thyme.model
 
 import org.squeryl.KeyedEntity
+import org.squeryl.dsl.ManyToOne
 
 
 object ChatMessage {
@@ -8,10 +9,9 @@ object ChatMessage {
     def apply(id: Long = 0L,
               sender: Long,
               body: String,
-              time: Long = System.currentTimeMillis(),
               roomId:Long): ChatMessage = {
 
-        new ChatMessage(id, sender, body, time,roomId)
+        new ChatMessage(id, sender, body,roomId)
 
     }
 }
@@ -19,9 +19,8 @@ object ChatMessage {
 class ChatMessage(val id: Long,
                   val sender: Long, // sender's uuid
                   val body: String,
-                  val time: Long,
                   val roomId: Long)
     extends KeyedEntity[Long]{
-    lazy val room = DataBase.roomToChatMessage.right(this)
+    lazy val room: ManyToOne[Room] = DataBase.roomToChatMessage.right(this)
 }
 

@@ -9,7 +9,7 @@ import com.thyme.model.User
 /** **********************Request************************* */
 case class InsertUser(user: User)
 
-case class QueryUser(mailbox: String)
+case class QueryUser(id: Long)
 
 // operatorCode =>
 //  0 => update password
@@ -18,7 +18,7 @@ case class UpdateUser(user: User)
 
 
 /** **********************Response*********************** */
-case class InsertSucceed()
+case class InsertSucceed(user:User)
 
 case class UserExist()
 

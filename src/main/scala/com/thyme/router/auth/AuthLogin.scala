@@ -26,17 +26,28 @@ object AuthLogin {
         post {
             path("login") {
                 formFieldMap { formParam =>
-                    if (formParam.contains("mailbox") && formParam.contains("password")) {
-                        val mailbox: String = formParam("mailbox")
+                    if (formParam.contains("user_id") && formParam.contains("password")) {
+                        val userId:Option[Int] = formParam("user_id").toIntOption
                         val password: String = formParam("password")
-                        Await.result(mongoTransactionActor ? QueryUser(mailbox), 7 seconds) match {
+                        if (userId.isEmpty){ // user_id contains some char which is not digit
+                            complete(StatusCodes.Accepted, HttpEntity(
+                                ContentTypes.`application/json`,
+                                AuthLoginResponse(
+                                    status = 0,
+                                    "InvalidArgument",
+                                    Map()
+                                ).toJson.toString
+                            ))
+                        }
+
+                        mongoTransactionActor ? QueryUser(userId) match {
                             case QuerySucceed(user) =>
                                 if (checkPasswordHash(password, user.password)) {
                                     complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                         AuthLoginResponse(
                                             status = 1,
                                             message = "Succeed",
-                                            data = Map("token" -> ExtensionFunction.generateJwtToken(mailbox))
+                                            data = Map("token" -> ExtensionFunction.generateJwtToken(userId))
                                         ).toJson.toString
                                     ))
                                 } else {

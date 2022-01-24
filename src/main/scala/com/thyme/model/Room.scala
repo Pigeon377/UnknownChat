@@ -5,14 +5,14 @@ import org.squeryl.{KeyedEntity, Query, Table}
 
 
 object Room {
-    def apply(id: Long, roomName: String, createTime: Long = System.currentTimeMillis()): Room = {
+    def apply(id: Long, roomName: String): Room = {
 
-        new Room(id, roomName, createTime)
+        new Room(id, roomName)
 
     }
 }
 
-class Room(val id: Long, val name: String, val createTime: Long) extends KeyedEntity[Long] {
+class Room(val id: Long, val name: String) extends KeyedEntity[Long] {
 
     lazy val users: Query[User] with ManyToMany[User, LinkUserAndRoom]
     = DataBase.linkUserAndRoom.right(this)
