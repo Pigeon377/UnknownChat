@@ -1,25 +1,34 @@
 package com.thyme.model
 
 import org.squeryl.PrimitiveTypeMode._
-import org.squeryl.{Schema, Session, SessionFactory, Table}
+import org.squeryl.{Schema, Table}
 
 object DataBase extends Schema {
-    val user: Table[User] = table[User]
-    val room: Table[Room] = table[Room]
-    val chatMessage: Table[ChatMessage] = table[ChatMessage]
+    val users: Table[User] = table[User]
+    val rooms: Table[Room] = table[Room]
+    val chatMessages: Table[ChatMessage] = table[ChatMessage]
 
-    on(user)(user => declare(
-        user.id is (primaryKey, autoIncremented),
+    on(users)(user => declare(
+        user.id is(primaryKey, autoIncremented),
         user.mailbox is unique
     ))
 
-    on(room)(room=>declare(
-        room.id is (primaryKey, autoIncremented),
+    on(rooms)(room => declare(
+        room.id is(primaryKey, autoIncremented),
         room.name is indexed
     ))
 
-    on(chatMessage)(chatMessage=>declare(
-        chatMessage.id is (primaryKey, autoIncremented)
+    on(chatMessages)(chatMessage => declare(
+        chatMessage.id is(primaryKey, autoIncremented)
     ))
 
+    val linkUserAndRoom: ManyToManyRelationImpl[User, Room, LinkUserAndRoom] = manyToManyRelation(users, rooms).via[LinkUserAndRoom](
+        (u, r, ur) => (u.id === ur.userId, r.id === ur.roomId)
+    )
+
+    val roomToChatMessage: OneToManyRelationImpl[Room, ChatMessage] =
+        oneToManyRelation(rooms, chatMessages).via((r, c) => r.id === c.roomId)
+
 }
+
+
