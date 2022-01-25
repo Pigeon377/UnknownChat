@@ -41,14 +41,10 @@ object ExtensionFunction {
         generatePasswordHash(password, truePassword.split("\\$")(0)).equals(truePassword)
     }
 
-    /**
-     * @param mailbox is audience's mailbox
-     * */
     def generateJwtToken(userId: Long): String = {
         JWT.create()
             .withSubject(jwtSubject)
             .withIssuer(jwtIssuer)
-            .withAudience(userId.toString)
             .withIssuedAt(new java.util.Date())
             .withExpiresAt(new java.util.Date(System.currentTimeMillis() + jwtEffectiveTime))
             .sign(Algorithm.HMAC512(jwtSecretKey))
