@@ -11,13 +11,15 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object RouterRegister {
     def registerRouter(implicit ex: ExecutionContext): Route = {
         pathPrefix("api") {
-            authRouter()
-            chatRouter()
+            concat(
+                authRouter(),
+                chatRouter()
+            )
         }
     }
 
-    private def chatRouter():Route={
-        pathPrefix("chat"){
+    private def chatRouter(): Route = {
+        pathPrefix("chat") {
             concat(
                 ChatSession.controller
             )
@@ -28,8 +30,8 @@ object RouterRegister {
         pathPrefix("auth") {
             concat(
                 AuthLogin.controller,
-                AuthRegister.controller,
-//                AuthUpdate.controller
+                AuthRegister.controller
+                //                AuthUpdate.controller
             )
         }
     }

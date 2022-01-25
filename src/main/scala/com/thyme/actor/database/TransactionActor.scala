@@ -12,27 +12,25 @@ class TransactionActor extends Actor {
     override def receive: Receive = {
 
         case InsertUser(user) => {
-            Future{
-                transaction {
-                    if(DataBase.users.where(x=>x.mailbox === user.mailbox).head == null) {
-                        DataBase.users.insert(user)
-                        sender() ! InsertSucceed(DataBase.users.where(x=>x.mailbox===user.mailbox).head)
-                    }else{
-                        sender() ! UserExist()
-                    }
+            transaction {
+                if (DataBase.users.where(x => x.mailbox === user.mailbox).isEmpty) {
+                    DataBase.users.insert(user)
+                    sender() ! InsertSucceed(DataBase.users.where(x => x.mailbox === user.mailbox).head)
+                } else {
+                    sender() ! UserExist()
                 }
             }
         }
-        case QueryUser(id) => {
-            Future{
+        case QueryUser(id) =>
+            transaction {
                 val user: User = DataBase.users.where(x => x.id === id).head
                 if (user == null) {
                     sender() ! UserUnExist()
                 } else {
-                    sender() ! user
+                    sender() ! QuerySucceed(user)
                 }
             }
-        }
+
         case UpdateUser(user) => ???
         case _ => println("[Warning!]   Unknown Message in MongoTransactionActor receive method")
     }

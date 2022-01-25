@@ -4,6 +4,8 @@ import org.squeryl.PrimitiveTypeMode._
 import org.squeryl.{Schema, Table}
 
 object DataBase extends Schema {
+
+
     val users: Table[User] = table[User]
     val rooms: Table[Room] = table[Room]
     val chatMessages: Table[ChatMessage] = table[ChatMessage]
@@ -28,6 +30,21 @@ object DataBase extends Schema {
 
     val roomToChatMessage: OneToManyRelationImpl[Room, ChatMessage] =
         oneToManyRelation(rooms, chatMessages).via((r, c) => r.id === c.roomId)
+
+    transaction{
+        try {
+            DataBase.create
+        }catch {
+            case e:Exception => e.printStackTrace()
+                println(
+                    """
+                      |-----------------------|
+                      |The schemas are existed|
+                      |-----------------------|
+                      |""".stripMargin)
+        }
+
+    }
 
 }
 

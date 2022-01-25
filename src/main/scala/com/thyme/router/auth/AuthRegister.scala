@@ -5,7 +5,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
-import com.thyme.actor.SingletonActor.mongoTransactionActor
+import com.thyme.actor.SingletonActor.databaseTransactionActor
 import com.thyme.actor.database.{InsertSucceed, InsertUser, UserExist}
 import com.thyme.extension.ExtensionFunction.generatePasswordHash
 import com.thyme.model.User
@@ -29,7 +29,7 @@ object AuthRegister {
             path("register") {
                 formFieldMap { formParam =>
                     if (formParam.contains("name") && formParam.contains("mailbox") && formParam.contains("password")) {
-                        Await.result(mongoTransactionActor ? InsertUser(
+                        Await.result(databaseTransactionActor ? InsertUser(
                             User(id=0L,mailbox = formParam("mailbox"), userName = formParam("name"), password = generatePasswordHash(formParam("password")))
                         ), 7 seconds) match {
                             case InsertSucceed(user) => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,

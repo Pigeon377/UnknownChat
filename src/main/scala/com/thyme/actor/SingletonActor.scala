@@ -5,5 +5,5 @@ import com.thyme.actor.database.TransactionActor
 import com.thyme.extension.FinalParam.system
 
 object SingletonActor {
-    val mongoTransactionActor: ActorRef = system.actorOf(Props[TransactionActor], "MongoTransactionActor")
+    val databaseTransactionActor: ActorRef = system.actorOf(Props[TransactionActor], "MongoTransactionActor")
 }
