@@ -2,13 +2,10 @@ package com.thyme.actor.database
 
 import akka.actor.Actor
 import akka.actor.TypedActor.dispatcher
-import com.thyme.actor.database.TransactionActor.userCollection
 import com.thyme.model.{DataBase, User}
 import org.squeryl.PrimitiveTypeMode._
 
-import scala.concurrent.{Await, Future}
-import scala.concurrent.Await.result
-import scala.concurrent.duration.DurationInt
+import scala.concurrent.Future
 import scala.language.postfixOps
 
 class TransactionActor extends Actor {

@@ -27,10 +27,10 @@ object AuthLogin {
             path("login") {
                 formFieldMap { formParam =>
                     if (formParam.contains("user_id") && formParam.contains("password")) {
-                        val userId:Option[Int] = formParam("user_id").toIntOption
+                        val userId: Option[Int] = formParam("user_id").toIntOption
                         val password: String = formParam("password")
-                        if (userId.isEmpty){ // user_id contains some char which is not digit
-                            complete(StatusCodes.Accepted, HttpEntity(
+                        if (userId.isEmpty) { // user_id contains some char which is not digit
+                            return complete(StatusCodes.Accepted, HttpEntity(
                                 ContentTypes.`application/json`,
                                 AuthLoginResponse(
                                     status = 0,
@@ -40,18 +40,18 @@ object AuthLogin {
                             ))
                         }
 
-                        mongoTransactionActor ? QueryUser(userId) match {
+                       Await.result(mongoTransactionActor ? QueryUser(userId.get),7 seconds) match {
                             case QuerySucceed(user) =>
                                 if (checkPasswordHash(password, user.password)) {
-                                    complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
+                                    return complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                         AuthLoginResponse(
                                             status = 1,
                                             message = "Succeed",
-                                            data = Map("token" -> ExtensionFunction.generateJwtToken(userId))
+                                            data = Map("token" -> ExtensionFunction.generateJwtToken(userId.get))
                                         ).toJson.toString
                                     ))
                                 } else {
-                                    complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
+                                    return complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                         AuthLoginResponse(
                                             status = 0,
                                             message = "MailboxUnMatchPassword",
@@ -59,7 +59,8 @@ object AuthLogin {
                                         ).toJson.toString
                                     ))
                                 }
-                            case UserUnExist() => complete(StatusCodes.Accepted, HttpEntity(
+                            case UserUnExist() =>
+                                return complete(StatusCodes.Accepted, HttpEntity(
                                 ContentTypes.`application/json`,
                                 AuthLoginResponse(
                                     status = 0,

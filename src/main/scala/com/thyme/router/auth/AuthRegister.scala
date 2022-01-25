@@ -30,10 +30,12 @@ object AuthRegister {
                 formFieldMap { formParam =>
                     if (formParam.contains("name") && formParam.contains("mailbox") && formParam.contains("password")) {
                         Await.result(mongoTransactionActor ? InsertUser(
-                            User(mailbox = formParam("mailbox"), userName = formParam("name"), password = generatePasswordHash(formParam("password")))
+                            User(id=0L,mailbox = formParam("mailbox"), userName = formParam("name"), password = generatePasswordHash(formParam("password")))
                         ), 7 seconds) match {
-                            case InsertSucceed() => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
-                                AuthRegisterResponse(status = 1, message = "Succeed", data = Map()).toJson.toString))
+                            case InsertSucceed(user) => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
+                                AuthRegisterResponse(status = 1, message = "Succeed", data = Map(
+                                    "user_id"->user.id.toString
+                                )).toJson.toString))
                             case UserExist() => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                 AuthRegisterResponse(status = 0, message = "UserExist", data = Map()).toJson.toString))
                         }

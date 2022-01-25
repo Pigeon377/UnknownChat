@@ -44,11 +44,11 @@ object ExtensionFunction {
     /**
      * @param mailbox is audience's mailbox
      * */
-    def generateJwtToken(mailbox: String): String = {
+    def generateJwtToken(userId: Long): String = {
         JWT.create()
             .withSubject(jwtSubject)
             .withIssuer(jwtIssuer)
-            .withAudience(mailbox)
+            .withAudience(userId.toString)
             .withIssuedAt(new java.util.Date())
             .withExpiresAt(new java.util.Date(System.currentTimeMillis() + jwtEffectiveTime))
             .sign(Algorithm.HMAC512(jwtSecretKey))
@@ -61,13 +61,13 @@ object ExtensionFunction {
      * legal => true
      * illegal => false
      * */
-    def checkJwtToken(tokenString: String, mailbox: String): Boolean = {
+    def checkJwtToken(tokenString: String,userId:Long): Boolean = {
         try {
             val decodeJwt = JWT.require(Algorithm.HMAC512(jwtSecretKey)).build().verify(tokenString)
             val decodeIssuer = decodeJwt.getIssuer
             val decodeSubject = decodeJwt.getSubject
-            val decodeMailbox = decodeJwt.getAudience.get(0)
-            decodeIssuer == jwtIssuer && decodeSubject == jwtSubject && mailbox == decodeMailbox
+            val decodeUserId = decodeJwt.getAudience.get(0).toLong
+            decodeIssuer == jwtIssuer && decodeSubject == jwtSubject && userId == decodeUserId
         } catch {
             case _: Exception => false
         }
@@ -80,22 +80,22 @@ object ExtensionFunction {
      * so ,you should change this to make it connect with time
      * although this operator will make function not be a pure function again
      * */
-    def generateCheckNumberWithMailbox(mailbox: String): Long = {
+    def generateCheckNumberWithMailbox(userId: Long): Long = {
         Math.abs(
-            (mailbox.hashCode & 0x7FFFFFFF +
-                (mailbox.hashCode * ("1145141919810".hashCode - 7 + "Pigeon3777777".hashCode)
-                    - (mailbox.hashCode + "sdcardasdagvcbdshhdst_dehrbsdfbbuggers".hashCode)) * 0x5DEECE66DL + 0xBL)
+            (userId & 0x7FFFFFFF +
+                (userId * ("1145141919810".hashCode - 7 + "Pigeon3777777".hashCode)
+                    - (userId + "sdcardasdagvcbdshhdst_dehrbsdfbbuggers".hashCode)) * 0x5DEECE66DL + 0xBL)
                 & 0xFFFFFFFFFFFFFL)
     }
 
     /**
-     * @param mailbox     String
+     * @param userId     String
      * @param checkNumber Long
      *                    as you see, judge  mailbox's tokenNumber is equals to checkNumber are equal or not
      *
      * */
-    def checkTokenNumberWithMailbox(mailbox: String, checkNumber: Long): Boolean = {
-        generateCheckNumberWithMailbox(mailbox) == checkNumber
+    def checkTokenNumberWithMailbox(userId: Long, checkNumber: Long): Boolean = {
+        generateCheckNumberWithMailbox(userId) == checkNumber
     }
 
 }

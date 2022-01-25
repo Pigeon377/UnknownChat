@@ -2,7 +2,7 @@ package com.thyme.router
 
 import akka.http.scaladsl.server.Directives.{concat, pathPrefix}
 import akka.http.scaladsl.server.Route
-import com.thyme.router.auth.{AuthLogin, AuthRegister, AuthUpdate}
+import com.thyme.router.auth.{AuthLogin, AuthRegister}
 import com.thyme.router.chat.ChatSession
 
 import scala.concurrent.ExecutionContext
@@ -29,7 +29,7 @@ object RouterRegister {
             concat(
                 AuthLogin.controller,
                 AuthRegister.controller,
-                AuthUpdate.controller
+//                AuthUpdate.controller
             )
         }
     }
