@@ -87,7 +87,7 @@ object RoomActor {
     def apply(roomID: Long): ActorRef = {
         val roomActorOption = roomActorMap.get(roomID)
         if (roomActorOption.isEmpty){
-            transcation
+
         }else{
             roomActorOption.get
         }
