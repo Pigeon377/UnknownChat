@@ -10,7 +10,7 @@ case class QueryRoom(id:Long)
 
 /********************* Response *******************************/
 
-case class InsertSucceed(room:Room)
+case class InsertRoomSucceed(roomId:Long)
 
 case class RoomExist()
 

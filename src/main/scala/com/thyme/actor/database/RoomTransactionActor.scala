@@ -7,13 +7,14 @@ class RoomTransactionActor extends Actor{
     override def receive: Receive = {
 
         case InsertRoom(room:Room) => insertNewRoom(room)
+        case QueryRoom(roomId:Long)=>
 
     }
 
     private def insertNewRoom(room: Room): Unit ={
         transaction{
             DataBase.rooms.insert(room)
-            sender() ! InsertSucceed()
+            sender() ! InsertRoomSucceed(DataBase.rooms.allRows.size)
         }
     }
 }

@@ -13,7 +13,7 @@ class UserTransactionActor extends Actor {
             transaction {
                 if (DataBase.users.where(x => x.mailbox === user.mailbox).isEmpty) {
                     DataBase.users.insert(user)
-                    sender() ! InsertSucceed(DataBase.users.where(x => x.mailbox === user.mailbox).head)
+                    sender() ! InsertUserSucceed(DataBase.users.where(x => x.mailbox === user.mailbox).head.id)
                 } else {
                     sender() ! UserExist()
                 }

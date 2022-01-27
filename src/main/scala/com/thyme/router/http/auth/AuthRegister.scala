@@ -6,7 +6,7 @@ import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
 import com.thyme.actor.SingletonActor.userTransactionActor
-import com.thyme.actor.database.{InsertSucceed, InsertUser, UserExist}
+import com.thyme.actor.database.{InsertUser, InsertUserSucceed, UserExist}
 import com.thyme.extension.ExtensionFunction.generatePasswordHash
 import com.thyme.model.User
 import spray.json.DefaultJsonProtocol.{IntJsonFormat, StringJsonFormat, jsonFormat3, mapFormat}
@@ -32,9 +32,9 @@ object AuthRegister {
                         Await.result(userTransactionActor ? InsertUser(
                             User(id=0L,mailbox = formParam("mailbox"), userName = formParam("name"), password = generatePasswordHash(formParam("password")))
                         ), 7 seconds) match {
-                            case InsertSucceed(user) => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
+                            case InsertUserSucceed(userId:Long) => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                 AuthRegisterResponse(status = 1, message = "Succeed", data = Map(
-                                    "user_id"->user.id.toString
+                                    "user_id"->userId.toString
                                 )).toJson.toString))
                             case UserExist() => complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                 AuthRegisterResponse(status = 0, message = "UserExist", data = Map()).toJson.toString))

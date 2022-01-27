@@ -18,7 +18,7 @@ case class UpdateUser(user: User)
 
 
 /** **********************Response*********************** */
-case class InsertSucceed(user:User)
+case class InsertUserSucceed(userId:Long)
 
 case class UserExist()
 
