@@ -1,27 +1,30 @@
 package com.thyme.router
 
-import akka.http.scaladsl.server.Directives.{concat, pathPrefix}
+import akka.actor.ActorSystem
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import com.thyme.router.auth.{AuthLogin, AuthRegister}
-import com.thyme.router.chat.ChatSession
+import akka.stream.Materializer
+import com.thyme.router.http.auth.{AuthLogin, AuthRegister}
+import com.thyme.router.websocket.WebSocketConnect
 
-import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object RouterRegister {
-    def registerRouter(implicit ex: ExecutionContext): Route = {
+    def registerRouter(implicit system: ActorSystem, mat: Materializer): Route = {
         pathPrefix("api") {
             concat(
                 authRouter(),
-                chatRouter()
+                chatRouter(),
+                websocketRouter(system,mat),
             )
         }
     }
 
+
     private def chatRouter(): Route = {
         pathPrefix("chat") {
             concat(
-                ChatSession.controller
+
             )
         }
     }
@@ -35,4 +38,13 @@ object RouterRegister {
             )
         }
     }
+    def websocketRouter(implicit system: ActorSystem, mat: Materializer): Route = {
+        pathPrefix("ws") {
+            concat(
+                WebSocketConnect.controller
+            )
+        }
+    }
+
+
 }

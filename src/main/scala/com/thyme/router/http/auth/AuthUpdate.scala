@@ -1,4 +1,4 @@
-//package com.thyme.router.auth
+//package com.thyme.router.http.auth
 //
 //import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 //import akka.http.scaladsl.server.Directives._

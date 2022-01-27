@@ -3,13 +3,15 @@ package com.thyme.actor.room
 import akka.actor.{Actor, ActorRef, Props}
 import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
 
+import scala.collection.mutable
 import scala.language.postfixOps
 
 class RoomActor(val roomID: Long,
                 var roomName: String,
                 val creatorUUID: Long) extends Actor {
 
-    val userList = new java.util.LinkedList[Long]()
+    // every user will be abstracted to a actor (but i don't know it's type)
+    val users:mutable.Map[String,ActorRef] = mutable.Map.empty[String, ActorRef]
 
     override def receive: Receive = {
         case AddNewUser(uuid) => this.addNewUser(uuid)
@@ -25,20 +27,14 @@ class RoomActor(val roomID: Long,
      * when you want to check user is pass check or not
      * use ExtensionFunction.checkTokenNumber(uuid) equals check the checkNumber is right
      * message should like this
-     *  {
-     *      "uuid":xxx,
-     *      "message" : message_body,
-     *      "check_number":xxx
-     *  }
+     * {
+     * "uuid":xxx,
+     * "message" : message_body,
+     * "check_number":xxx
+     * }
      * */
-    def broadcastMessage(message: String): Boolean = {
-
-        //TODO
-        // broadcast message in this room
-        // we should use a websocket actor / user actor to deal with websocket connect user
-        // this method only need deal broadcast and tell websocket actor / user actor
-        // need push a new message to client
-        true
+    def broadcastMessage(message: String):Unit = {
+        users.values.foreach(_ ! message)
     }
 
 

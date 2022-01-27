@@ -3,29 +3,30 @@ package com.thyme
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
+import akka.stream.Materializer
 import com.thyme.router.RouterRegister
 import org.squeryl.{Session, SessionFactory}
 import org.squeryl.adapters.MySQLAdapter
 
-import scala.concurrent.{ExecutionContextExecutor, Future}
+import java.util.concurrent.Executors
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
 
 object Main {
+    implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "AkkaHttp")
+    implicit val materializer: Materializer = Materializer.matFromSystem
+    implicit val executionContext: ExecutionContextExecutor =
+        ExecutionContext.fromExecutor(Executors.newFixedThreadPool(16))
 
     def main(args: Array[String]): Unit = {
 
         registerDataBase()
         registerRouter()
-        // TODO
-        // a user only need one websocket connect
-        // we can push message to the user with
-        // { "room_id":room_id,"message" : message }
-        // let front-end finish message distribute
+
     }
 
     def registerRouter(): Future[Http.ServerBinding] = {
-        implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "AkkaHttp")
-        implicit val executionContext: ExecutionContextExecutor = system.executionContext
-        Http().newServerAt("localhost", 2333).bind(RouterRegister.registerRouter)
+        Http().newServerAt("localhost", 2333)
+            .bind(RouterRegister.registerRouter(com.thyme.extension.FinalParam.system,materializer))
     }
 
     def registerDataBase(): Unit = {
