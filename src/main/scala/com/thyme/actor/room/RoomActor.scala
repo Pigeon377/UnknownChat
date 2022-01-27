@@ -6,12 +6,10 @@ import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
 import scala.collection.mutable
 import scala.language.postfixOps
 
-class RoomActor(val roomID: Long,
-                var roomName: String,
-                val creatorUUID: Long) extends Actor {
+class RoomActor(val roomID: Long) extends Actor {
 
     // every user will be abstracted to a actor (but i don't know it's type)
-    val users:mutable.Map[String,ActorRef] = mutable.Map.empty[String, ActorRef]
+    val users: mutable.Map[String, ActorRef] = mutable.Map.empty[String, ActorRef]
 
     override def receive: Receive = {
         case AddNewUser(uuid) => this.addNewUser(uuid)
@@ -33,7 +31,7 @@ class RoomActor(val roomID: Long,
      * "check_number":xxx
      * }
      * */
-    def broadcastMessage(message: String):Unit = {
+    def broadcastMessage(message: String): Unit = {
         users.values.foreach(_ ! message)
     }
 
@@ -84,10 +82,15 @@ class RoomActor(val roomID: Long,
 
 object RoomActor {
 
-    def apply(roomID: Long, roomName: String, creatorUUID: Long): ActorRef = {
-        val actor = system.actorOf(Props(new RoomActor(roomID = roomID, roomName = roomName, creatorUUID = creatorUUID)), roomID.toString)
-        roomIDMapToActorPath.put(roomID, actor.path)
-        actor
+    private val roomActorMap = mutable.Map[Long, ActorRef]()
+
+    def apply(roomID: Long): ActorRef = {
+        val roomActorOption = roomActorMap.get(roomID)
+        if (roomActorOption.isEmpty){
+            transcation
+        }else{
+            roomActorOption.get
+        }
     }
 
     def isRoomExist(roomID: Long): Boolean = {

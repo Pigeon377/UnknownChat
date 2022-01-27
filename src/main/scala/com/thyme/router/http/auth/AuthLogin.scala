@@ -8,7 +8,7 @@ import akka.util.Timeout
 import com.thyme.extension.ExtensionFunction
 import spray.json.DefaultJsonProtocol.{IntJsonFormat, StringJsonFormat, jsonFormat3, mapFormat}
 import spray.json.{RootJsonFormat, enrichAny}
-import com.thyme.actor.SingletonActor.databaseTransactionActor
+import com.thyme.actor.SingletonActor.userTransactionActor
 import com.thyme.actor.database.{QuerySucceed, QueryUser, UserUnExist}
 import com.thyme.extension.ExtensionFunction._
 import scala.concurrent.{Await, ExecutionContext}
@@ -40,7 +40,7 @@ object AuthLogin {
                             ))
                         }
 
-                       Await.result(databaseTransactionActor ? QueryUser(userId.get),7 seconds) match {
+                        Await.result(userTransactionActor ? QueryUser(userId.get), 7 seconds) match {
                             case QuerySucceed(user) =>
                                 if (checkPasswordHash(password, user.password)) {
                                     complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
@@ -61,13 +61,13 @@ object AuthLogin {
                                 }
                             case UserUnExist() =>
                                 complete(StatusCodes.Accepted, HttpEntity(
-                                ContentTypes.`application/json`,
-                                AuthLoginResponse(
-                                    status = 0,
-                                    message = "MailboxUnMatchPassword",
-                                    data = Map()
-                                ).toJson.toString
-                            ))
+                                    ContentTypes.`application/json`,
+                                    AuthLoginResponse(
+                                        status = 0,
+                                        message = "MailboxUnMatchPassword",
+                                        data = Map()
+                                    ).toJson.toString
+                                ))
                         }
                     } else {
                         complete(StatusCodes.Accepted, HttpEntity(

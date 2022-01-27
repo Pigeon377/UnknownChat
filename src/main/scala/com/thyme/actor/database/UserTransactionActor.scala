@@ -1,14 +1,12 @@
 package com.thyme.actor.database
 
 import akka.actor.Actor
-import akka.actor.TypedActor.dispatcher
 import com.thyme.model.{DataBase, User}
 import org.squeryl.PrimitiveTypeMode._
 
-import scala.concurrent.Future
 import scala.language.postfixOps
 
-class TransactionActor extends Actor {
+class UserTransactionActor extends Actor {
     override def receive: Receive = {
 
         case InsertUser(user) => {
@@ -21,6 +19,7 @@ class TransactionActor extends Actor {
                 }
             }
         }
+
         case QueryUser(id) =>
             transaction {
                 val user: User = DataBase.users.where(x => x.id === id).head
@@ -32,6 +31,7 @@ class TransactionActor extends Actor {
             }
 
         case UpdateUser(user) => ???
+
         case _ => println("[Warning!]   Unknown Message in MongoTransactionActor receive method")
     }
 }
