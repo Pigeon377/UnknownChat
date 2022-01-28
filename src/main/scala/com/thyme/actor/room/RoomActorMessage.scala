@@ -1,6 +1,8 @@
 package com.thyme.actor.room
 
-case class AddNewUser(uuid: Long)
+import akka.actor.ActorRef
+
+case class JoinRoom(uuid: Long,actorRef: ActorRef)
 
 case class RemoveUser(uuid: Long)
 

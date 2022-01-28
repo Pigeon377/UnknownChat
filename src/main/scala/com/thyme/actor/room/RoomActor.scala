@@ -4,7 +4,7 @@ import akka.actor.{Actor, ActorRef, Props}
 import akka.pattern.ask
 import com.thyme.Test.timeout
 import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
-import com.thyme.model.DataBase
+import com.thyme.model.{DataBase, User}
 import org.squeryl.PrimitiveTypeMode._
 import com.thyme.actor.SingletonActor.roomTransactionActor
 import com.thyme.actor.database.{QueryRoom, QueryRoomSucceed, RoomUnExist}
@@ -15,81 +15,55 @@ import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 class RoomActor(val roomID: Long,
-                var usersIdToNameMap: mutable.Map[Long, String] = mutable.Map.empty)
+                var userList:List[User])
     extends Actor {
 
     // every user will be abstracted to a actor (but i don't know it's type)
-    val userConnectionMap: mutable.Map[String, ActorRef] = mutable.Map.empty[String, ActorRef]
+    // userId to ActorRef
+    val userConnectionMap: mutable.Map[Long, ActorRef] = mutable.Map.empty[Long, ActorRef]
 
     override def receive: Receive = {
-        case AddNewUser(uuid) => this.addNewUser(uuid)
-        case RemoveUser(uuid) => this.removeUser(uuid)
-        case IsUserExist(uuid) => this.isInUserList(uuid)
+        case JoinRoom(userId,actorRef) => this.joinRoom(userId,actorRef)
+        case RemoveUser(userId) => this.removeUser(userId)
         case ChangeRoomName(newName) => this.changeRoomName(newName)
         case BroadcastMessage(message) => this.broadcastMessage(message)
         case _ => println("[Warning!]   Unknown Message in RoomActor receive method")
     }
 
-
-    /**
-     * when you want to check user is pass check or not
-     * use ExtensionFunction.checkTokenNumber(uuid) equals check the checkNumber is right
-     * message should like this
-     * {
-     * "uuid":xxx,
-     * "message" : message_body,
-     * "check_number":xxx
-     * }
-     * */
     def broadcastMessage(message: String): Unit = {
-        users.values.foreach(_ ! message)
+        userConnectionMap.values.foreach(_ ! message)
     }
 
 
     /**
-     * @return
-     * true => this user is in userList
-     * false=> this user not in userList
+     * @param actorRef is websocket connect ActorRef
+     *                 put id and it in the map
+     *                 user can receive message in this room
      * */
-    private def isInUserList(uuid: Long): Boolean = {
-        userList.contains(uuid)
+    private def joinRoom(userId: Long,actorRef: ActorRef):Unit = {
+//    future    this.userList.contains(userId)
+        this.userConnectionMap.put(userId,actorRef)
     }
 
-    /**
-     * @return
-     * true => add operator succeed!
-     * false=> user exist! failed!
-     * */
-    private def addNewUser(uuid: Long): Boolean = {
-        if (isInUserList(uuid)) {
-            false
-        } else {
-            userList.add(uuid)
-            true
-        }
-    }
 
-    /**
-     * @return
-     * true => delete operator succeed!
-     * false=> user UnExist! failed!
-     * */
-    private def removeUser(uuid: Long): Boolean = {
-        if (isInUserList(uuid)) {
-            userList.remove(uuid)
-            true
-        } else {
-            false
-        }
-    }
+//    future! /**
+//     * @return
+//     * true => delete operator succeed!
+//     * false=> user UnExist! failed!
+//     * */
+//    private def removeUser(userId: Long): Boolean = {
+//        if (isInUserList(userId)) {
+//            userList.remove(userId)
+//            true
+//        } else {
+//            false
+//        }
+//    }
 
     private def changeRoomName(newRoomName: String): Unit = {
         this.roomName = newRoomName
     }
 
-    private def broadcastMessage(msg: String): Unit = {
-        this.users.values.foreach(_ ! msg)
-    }
 
 }
 
@@ -98,13 +72,18 @@ object RoomActor {
 
     private val roomActorMap = mutable.Map[Long, ActorRef]()
 
+    /**
+     * @param roomID using roomID to get right room actor
+     * @return
+     *      ActorRef => get room which you find
+     *      null     => room is UnExist
+     * */
     def apply(roomID: Long): ActorRef = {
         val roomActorOption = roomActorMap.get(roomID)
         if (roomActorOption.isEmpty) {
             Await.result(roomTransactionActor ? QueryRoom(roomID), 7 seconds) match {
                 case QueryRoomSucceed(room, users) =>
-                    val roomActor = system.actorOf(Props[RoomActor](room.id,
-                        mutable.Map.newBuilder(users.map(x => (x.id, x.userName))).result()))
+                    val roomActor = system.actorOf(Props[RoomActor](room.id,users))
                     this.roomActorMap.put(roomID, roomActor)
                     roomActor
                 case RoomUnExist() =>
@@ -114,18 +93,4 @@ object RoomActor {
             roomActorOption.get
         }
     }
-
-    def isRoomExist(roomID: Long): Boolean = {
-        roomIDMapToActorPath.contains(roomID)
-    }
-
-    def getActorWithRoomID(roomID: Long): ActorRef = {
-        // TODO use roomID to get a RoomActor
-        // if this actor exist ,return this actor;
-        // if it isn't exist, think about two possible
-        // 1. room exist, but it be saved in database and not in memory
-        // 2. room unExist,you should return null to the caller
-        null
-    }
-
 }
