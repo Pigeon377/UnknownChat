@@ -8,6 +8,6 @@ case class RemoveUser(uuid: Long)
 
 case class IsUserExist(uuid:Long)
 
-case class ChangeRoomName(newName: String)
+case class ChangeName(newName: String)
 
 case class BroadcastMessage(message:String)

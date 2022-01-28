@@ -3,11 +3,10 @@ package com.thyme.actor.room
 import akka.actor.{Actor, ActorRef, Props}
 import akka.pattern.ask
 import com.thyme.Test.timeout
-import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
-import com.thyme.model.{DataBase, User}
-import org.squeryl.PrimitiveTypeMode._
 import com.thyme.actor.SingletonActor.roomTransactionActor
-import com.thyme.actor.database.{QueryRoom, QueryRoomSucceed, RoomUnExist}
+import com.thyme.actor.database.{ChangeRoomName, QueryRoom, QueryRoomSucceed, RoomUnExist}
+import com.thyme.extension.FinalParam.system
+import com.thyme.model.User
 
 import scala.collection.mutable
 import scala.concurrent.Await
@@ -24,8 +23,7 @@ class RoomActor(val roomID: Long,
 
     override def receive: Receive = {
         case JoinRoom(userId,actorRef) => this.joinRoom(userId,actorRef)
-        case RemoveUser(userId) => this.removeUser(userId)
-        case ChangeRoomName(newName) => this.changeRoomName(newName)
+        case ChangeName(newName) => this.changeRoomName(newName)
         case BroadcastMessage(message) => this.broadcastMessage(message)
         case _ => println("[Warning!]   Unknown Message in RoomActor receive method")
     }
@@ -61,7 +59,7 @@ class RoomActor(val roomID: Long,
 //    }
 
     private def changeRoomName(newRoomName: String): Unit = {
-        this.roomName = newRoomName
+        Await.result(roomTransactionActor ? ChangeRoomName(this.roomID,newRoomName),7 seconds)
     }
 
 
@@ -83,7 +81,7 @@ object RoomActor {
         if (roomActorOption.isEmpty) {
             Await.result(roomTransactionActor ? QueryRoom(roomID), 7 seconds) match {
                 case QueryRoomSucceed(room, users) =>
-                    val roomActor = system.actorOf(Props[RoomActor](room.id,users))
+                    val roomActor = system.actorOf(Props.create(classOf[RoomActor],room.id,users))
                     this.roomActorMap.put(roomID, roomActor)
                     roomActor
                 case RoomUnExist() =>

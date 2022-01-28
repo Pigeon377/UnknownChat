@@ -9,9 +9,9 @@ import scala.collection.mutable
 class RoomTransactionActor extends Actor {
     override def receive: Receive = {
 
-        case InsertRoom(room: Room) => insertNewRoom(room)
-        case QueryRoom(roomId: Long) =>queryRoom(roomId)
-
+        case InsertRoom(room) => insertNewRoom(room)
+        case QueryRoom(roomId) => queryRoom(roomId)
+        case ChangeRoomName(roomId, newName) => changeRoomName(roomId, newName)
     }
 
     private def insertNewRoom(room: Room): Unit = {
@@ -24,11 +24,17 @@ class RoomTransactionActor extends Actor {
     private def queryRoom(roomId: Long): Unit = {
         transaction {
             val room = DataBase.rooms.where(x => roomId === x.id)
-            if (room.isEmpty){
+            if (room.isEmpty) {
                 sender() ! RoomUnExist()
-            }else{
-                sender() ! QueryRoomSucceed(room.head,room.head.users.toList)
+            } else {
+                sender() ! QueryRoomSucceed(room.head, room.head.users.toList)
             }
+        }
+    }
+
+    private def changeRoomName(roomId: Long, newName: String): Unit = {
+        transaction {
+            update(DataBase.rooms)(r => where(r.id === roomId) set (r.name := newName))
         }
     }
 }
