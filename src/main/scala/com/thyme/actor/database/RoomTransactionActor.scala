@@ -3,18 +3,30 @@ package com.thyme.actor.database
 import akka.actor.Actor
 import com.thyme.model.{DataBase, Room}
 import org.squeryl.PrimitiveTypeMode._
-class RoomTransactionActor extends Actor{
+
+class RoomTransactionActor extends Actor {
     override def receive: Receive = {
 
-        case InsertRoom(room:Room) => insertNewRoom(room)
-        case QueryRoom(roomId:Long)=>
+        case InsertRoom(room: Room) => insertNewRoom(room)
+        case QueryRoom(roomId: Long) =>queryRoom(roomId)
 
     }
 
-    private def insertNewRoom(room: Room): Unit ={
-        transaction{
+    private def insertNewRoom(room: Room): Unit = {
+        transaction {
             DataBase.rooms.insert(room)
             sender() ! InsertRoomSucceed(DataBase.rooms.allRows.size)
+        }
+    }
+
+    private def queryRoom(roomId: Long): Unit = {
+        transaction {
+            val room = DataBase.rooms.where(x => roomId === x.id)
+            if (room.isEmpty){
+                sender() ! RoomUnExist()
+            }else{
+                sender() ! QuerySucceed(room.head)
+            }
         }
     }
 }

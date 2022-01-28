@@ -7,5 +7,5 @@ import com.thyme.extension.FinalParam.system
 
 object SingletonActor {
     val userTransactionActor: ActorRef = system.actorOf(Props[UserTransactionActor], "UserTransactionActor")
-    val webSocketConnectActor:ActorRef = system.actorOf(Props[WebSocketConnectActor],"")
+    val webSocketConnectActor:ActorRef = system.actorOf(Props[WebSocketConnectActor],"WebSocketConnectActor")
 }

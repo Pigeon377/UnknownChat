@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.Materializer
-import com.thyme.router.http.auth.{AuthLogin, AuthRegister}
+import com.thyme.router.http.auth.{Login, Register}
 import com.thyme.router.websocket.WebSocketConnect
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -32,8 +32,8 @@ object RouterRegister {
     private def authRouter(): Route = {
         pathPrefix("auth") {
             concat(
-                AuthLogin.controller,
-                AuthRegister.controller
+                Login.controller,
+                Register.controller
                 //                AuthUpdate.controller
             )
         }

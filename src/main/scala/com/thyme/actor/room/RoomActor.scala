@@ -2,14 +2,18 @@ package com.thyme.actor.room
 
 import akka.actor.{Actor, ActorRef, Props}
 import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
+import com.thyme.model.DataBase
+import org.squeryl.PrimitiveTypeMode._
 
 import scala.collection.mutable
 import scala.language.postfixOps
 
-class RoomActor(val roomID: Long) extends Actor {
+class RoomActor(val roomID: Long,
+                var usersIdToNameMap: mutable.Map[Long, String] = mutable.Map.empty)
+    extends Actor {
 
     // every user will be abstracted to a actor (but i don't know it's type)
-    val users: mutable.Map[String, ActorRef] = mutable.Map.empty[String, ActorRef]
+    val userConnectionMap: mutable.Map[String, ActorRef] = mutable.Map.empty[String, ActorRef]
 
     override def receive: Receive = {
         case AddNewUser(uuid) => this.addNewUser(uuid)
@@ -77,6 +81,10 @@ class RoomActor(val roomID: Long) extends Actor {
         this.roomName = newRoomName
     }
 
+    private def broadcastMessage(msg: String): Unit = {
+        this.users.values.foreach(_ ! msg)
+    }
+
 }
 
 
@@ -86,9 +94,26 @@ object RoomActor {
 
     def apply(roomID: Long): ActorRef = {
         val roomActorOption = roomActorMap.get(roomID)
-        if (roomActorOption.isEmpty){
-
-        }else{
+        if (roomActorOption.isEmpty) {
+            val room = transaction {
+                DataBase.rooms.where(x => roomID === x.id)
+            }
+            // if room never exist in database
+            if (room.isEmpty) {
+                null
+            } else {
+                //if room exist in database
+                // get all users in this room from database
+                // load them in memory
+                transaction {
+                    val roomActor = system.actorOf(Props[RoomActor](
+                        room.head.id,
+                        mutable.Map.newBuilder(room.head.users.map(x => (x.id, x.userName))).result()))
+                    this.roomActorMap.put(roomID, roomActor)
+                    roomActor
+                }
+            }
+        } else {
             roomActorOption.get
         }
     }

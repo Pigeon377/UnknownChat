@@ -57,7 +57,7 @@ object ExtensionFunction {
      * legal => true
      * illegal => false
      * */
-    def checkJwtToken(tokenString: String,userId:Long): Boolean = {
+    def checkJwtToken(tokenString: String, userId: Long): Boolean = {
         try {
             val decodeJwt = JWT.require(Algorithm.HMAC512(jwtSecretKey)).build().verify(tokenString)
             val decodeIssuer = decodeJwt.getIssuer
@@ -69,29 +69,5 @@ object ExtensionFunction {
         }
     }
 
-
-    /**
-     * the result will depend on your mailbox
-     * and never change!
-     * so ,you should change this to make it connect with time
-     * although this operator will make function not be a pure function again
-     * */
-    def generateCheckNumberWithMailbox(userId: Long): Long = {
-        Math.abs(
-            (userId & 0x7FFFFFFF +
-                (userId * ("1145141919810".hashCode - 7 + "Pigeon3777777".hashCode)
-                    - (userId + "sdcardasdagvcbdshhdst_dehrbsdfbbuggers".hashCode)) * 0x5DEECE66DL + 0xBL)
-                & 0xFFFFFFFFFFFFFL)
-    }
-
-    /**
-     * @param userId     String
-     * @param checkNumber Long
-     *                    as you see, judge  mailbox's tokenNumber is equals to checkNumber are equal or not
-     *
-     * */
-    def checkTokenNumberWithMailbox(userId: Long, checkNumber: Long): Boolean = {
-        generateCheckNumberWithMailbox(userId) == checkNumber
-    }
 
 }

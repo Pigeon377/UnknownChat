@@ -26,7 +26,7 @@ class UserTransactionActor extends Actor {
                 if (user == null) {
                     sender() ! UserUnExist()
                 } else {
-                    sender() ! QuerySucceed(user)
+                    sender() ! QueryRoomSucceed(user)
                 }
             }
 

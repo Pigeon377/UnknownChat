@@ -16,7 +16,7 @@ import scala.concurrent.duration.DurationInt
 import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps
 
-object AuthRegister {
+object Register {
 
     case class AuthRegisterResponse(status: Int, message: String, data: Map[String, String])
 

@@ -14,7 +14,7 @@ case class InsertRoomSucceed(roomId:Long)
 
 case class RoomExist()
 
-case class QuerySucceed(room: Room)
+case class QueryRoomSucceed(room: Room)
 
 case class RoomUnExist()
 

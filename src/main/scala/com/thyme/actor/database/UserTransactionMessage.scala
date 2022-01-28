@@ -22,7 +22,7 @@ case class InsertUserSucceed(userId:Long)
 
 case class UserExist()
 
-case class QuerySucceed(user: User)
+case class QueryUserSucceed(user: User)
 
 case class UserUnExist()
 
