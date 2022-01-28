@@ -1,11 +1,17 @@
 package com.thyme.actor.room
 
 import akka.actor.{Actor, ActorRef, Props}
+import akka.pattern.ask
+import com.thyme.Test.timeout
 import com.thyme.extension.FinalParam.{roomIDMapToActorPath, system}
 import com.thyme.model.DataBase
 import org.squeryl.PrimitiveTypeMode._
+import com.thyme.actor.SingletonActor.roomTransactionActor
+import com.thyme.actor.database.{QueryRoom, QueryRoomSucceed, RoomUnExist}
 
 import scala.collection.mutable
+import scala.concurrent.Await
+import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 class RoomActor(val roomID: Long,
@@ -95,23 +101,14 @@ object RoomActor {
     def apply(roomID: Long): ActorRef = {
         val roomActorOption = roomActorMap.get(roomID)
         if (roomActorOption.isEmpty) {
-            val room = transaction {
-                DataBase.rooms.where(x => roomID === x.id)
-            }
-            // if room never exist in database
-            if (room.isEmpty) {
-                null
-            } else {
-                //if room exist in database
-                // get all users in this room from database
-                // load them in memory
-                transaction {
-                    val roomActor = system.actorOf(Props[RoomActor](
-                        room.head.id,
-                        mutable.Map.newBuilder(room.head.users.map(x => (x.id, x.userName))).result()))
+            Await.result(roomTransactionActor ? QueryRoom(roomID), 7 seconds) match {
+                case QueryRoomSucceed(room, users) =>
+                    val roomActor = system.actorOf(Props[RoomActor](room.id,
+                        mutable.Map.newBuilder(users.map(x => (x.id, x.userName))).result()))
                     this.roomActorMap.put(roomID, roomActor)
                     roomActor
-                }
+                case RoomUnExist() =>
+                    null
             }
         } else {
             roomActorOption.get

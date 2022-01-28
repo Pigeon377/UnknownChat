@@ -4,6 +4,8 @@ import akka.actor.Actor
 import com.thyme.model.{DataBase, Room}
 import org.squeryl.PrimitiveTypeMode._
 
+import scala.collection.mutable
+
 class RoomTransactionActor extends Actor {
     override def receive: Receive = {
 
@@ -25,7 +27,7 @@ class RoomTransactionActor extends Actor {
             if (room.isEmpty){
                 sender() ! RoomUnExist()
             }else{
-                sender() ! QuerySucceed(room.head)
+                sender() ! QueryRoomSucceed(room.head,room.head.users.toList)
             }
         }
     }

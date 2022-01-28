@@ -1,6 +1,6 @@
 package com.thyme.actor.database
 
-import com.thyme.model.Room
+import com.thyme.model.{Room, User}
 
 /********************** Request ************************/
 case class InsertRoom(room:Room)
@@ -14,7 +14,7 @@ case class InsertRoomSucceed(roomId:Long)
 
 case class RoomExist()
 
-case class QueryRoomSucceed(room: Room)
+case class QueryRoomSucceed(room: Room,userList:Seq[User]=List())
 
 case class RoomUnExist()
 
