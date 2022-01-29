@@ -11,14 +11,12 @@ case class InsertUser(user: User)
 
 case class QueryUser(id: Long)
 
-// operatorCode =>
-//  0 => update password
-//  1 => update username
 case class UpdateUser(user: User)
 
+case class QueryUserJoinedAllRoom(id: Long)
 
 /** **********************Response*********************** */
-case class InsertUserSucceed(userId:Long)
+case class InsertUserSucceed(userId: Long)
 
 case class UserExist()
 
@@ -29,3 +27,5 @@ case class UserUnExist()
 case class UpdateUserSucceed()
 
 case class UpdateUserFailed()
+
+case class QueryUserJoinedAllRoomSucceed(roomIdList:List[Long]=List())

@@ -45,6 +45,7 @@ object ExtensionFunction {
         JWT.create()
             .withSubject(jwtSubject)
             .withIssuer(jwtIssuer)
+            .withAudience(userId.toString)
             .withIssuedAt(new java.util.Date())
             .withExpiresAt(new java.util.Date(System.currentTimeMillis() + jwtEffectiveTime))
             .sign(Algorithm.HMAC512(jwtSecretKey))
@@ -54,18 +55,19 @@ object ExtensionFunction {
      * check jwt token is legal or not
      *
      * @return
-     * legal => true
-     * illegal => false
+     * legal => user ID
+     * illegal => -1
      * */
-    def checkJwtToken(tokenString: String, userId: Long): Boolean = {
+    def checkJwtToken(tokenString: String): Long = {
         try {
             val decodeJwt = JWT.require(Algorithm.HMAC512(jwtSecretKey)).build().verify(tokenString)
             val decodeIssuer = decodeJwt.getIssuer
             val decodeSubject = decodeJwt.getSubject
             val decodeUserId = decodeJwt.getAudience.get(0).toLong
-            decodeIssuer == jwtIssuer && decodeSubject == jwtSubject && userId == decodeUserId
+            if(decodeIssuer == jwtIssuer && decodeSubject == jwtSubject) decodeUserId
+            else -1
         } catch {
-            case _: Exception => false
+            case _: Exception => -1
         }
     }
 

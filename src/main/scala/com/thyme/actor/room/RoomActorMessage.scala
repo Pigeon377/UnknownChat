@@ -4,9 +4,8 @@ import akka.actor.ActorRef
 
 case class JoinRoom(uuid: Long,actorRef: ActorRef)
 
-case class RemoveUser(uuid: Long)
+case class LeftRoom(uuid:Long)
 
-case class IsUserExist(uuid:Long)
 
 case class ChangeName(newName: String)
 

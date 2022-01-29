@@ -32,6 +32,11 @@ class UserTransactionActor extends Actor {
 
         case UpdateUser(user) => ???
 
+        case QueryUserJoinedAllRoom(id)=>
+            transaction{
+               sender() ! QueryUserJoinedAllRoomSucceed(DataBase.users.where(x => x.id === id).head.rooms.map(x=>x.id).toList)
+            }
+
         case _ => println("[Warning!]   Unknown Message in MongoTransactionActor receive method")
     }
 }

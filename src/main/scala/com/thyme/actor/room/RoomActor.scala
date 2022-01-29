@@ -3,8 +3,8 @@ package com.thyme.actor.room
 import akka.actor.{Actor, ActorRef, Props}
 import akka.pattern.ask
 import com.thyme.Test.timeout
-import com.thyme.actor.SingletonActor.roomTransactionActor
-import com.thyme.actor.database.{ChangeRoomName, QueryRoom, QueryRoomSucceed, RoomUnExist}
+import com.thyme.actor.SingletonActor.{roomTransactionActor, userTransactionActor}
+import com.thyme.actor.database.{ChangeRoomName, QueryRoom, QueryRoomSucceed, QueryUserJoinedAllRoom, QueryUserJoinedAllRoomSucceed, RoomUnExist}
 import com.thyme.extension.FinalParam.system
 import com.thyme.model.User
 
@@ -23,6 +23,7 @@ class RoomActor(val roomID: Long,
 
     override def receive: Receive = {
         case JoinRoom(userId,actorRef) => this.joinRoom(userId,actorRef)
+        case LeftRoom(userId) => this.leftRoom(userId)
         case ChangeName(newName) => this.changeRoomName(newName)
         case BroadcastMessage(message) => this.broadcastMessage(message)
         case _ => println("[Warning!]   Unknown Message in RoomActor receive method")
@@ -43,6 +44,10 @@ class RoomActor(val roomID: Long,
         this.userConnectionMap.put(userId,actorRef)
     }
 
+
+    private def leftRoom(userId:Long): Unit ={
+        this.userConnectionMap.remove(userId)
+    }
 
 //    future! /**
 //     * @return
@@ -91,4 +96,12 @@ object RoomActor {
             roomActorOption.get
         }
     }
+
+    def joinAllRoomWithUserId(userId:Long,actorRef: ActorRef): Unit ={
+        Await.result(userTransactionActor ? QueryUserJoinedAllRoom(userId),7 seconds) match {
+            case QueryUserJoinedAllRoomSucceed(userList) =>
+                userList.foreach(x=>RoomActor(x) ! JoinRoom(userId,actorRef))
+        }
+    }
+
 }
