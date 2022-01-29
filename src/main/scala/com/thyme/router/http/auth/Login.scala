@@ -9,8 +9,9 @@ import com.thyme.extension.ExtensionFunction
 import spray.json.DefaultJsonProtocol.{IntJsonFormat, StringJsonFormat, jsonFormat3, mapFormat}
 import spray.json.{RootJsonFormat, enrichAny}
 import com.thyme.actor.SingletonActor.userTransactionActor
-import com.thyme.actor.database.{QueryRoomSucceed, QueryUser, UserUnExist}
+import com.thyme.actor.database.{QueryRoomSucceed, QueryUser, QueryUserSucceed, UserUnExist}
 import com.thyme.extension.ExtensionFunction._
+
 import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
@@ -41,7 +42,7 @@ object Login {
                         }
 
                         Await.result(userTransactionActor ? QueryUser(userId.get), 7 seconds) match {
-                            case QueryRoomSucceed(user) =>
+                            case QueryUserSucceed(user) =>
                                 if (checkPasswordHash(password, user.password)) {
                                     complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
                                         AuthLoginResponse(

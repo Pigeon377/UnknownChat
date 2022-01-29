@@ -18,6 +18,6 @@ case class QueryRoomSucceed(room: Room,userList:Seq[User]=List())
 
 case class RoomUnExist()
 
-case class UpdateSucceed()
+case class UpdateRoomSucceed()
 
-case class UpdateFailed()
+case class UpdateRoomFailed()

@@ -26,6 +26,6 @@ case class QueryUserSucceed(user: User)
 
 case class UserUnExist()
 
-case class UpdateSucceed()
+case class UpdateUserSucceed()
 
-case class UpdateFailed()
+case class UpdateUserFailed()

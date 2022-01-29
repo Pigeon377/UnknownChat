@@ -81,7 +81,7 @@ object RoomActor {
         if (roomActorOption.isEmpty) {
             Await.result(roomTransactionActor ? QueryRoom(roomID), 7 seconds) match {
                 case QueryRoomSucceed(room, users) =>
-                    val roomActor = system.actorOf(Props.create(classOf[RoomActor],room.id,users))
+                    val roomActor = system.actorOf(Props(new RoomActor(room.id,users.toList)))
                     this.roomActorMap.put(roomID, roomActor)
                     roomActor
                 case RoomUnExist() =>
