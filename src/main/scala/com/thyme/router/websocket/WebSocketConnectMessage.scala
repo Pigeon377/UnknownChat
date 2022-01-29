@@ -19,4 +19,4 @@ package com.thyme.router.websocket
  * */
 case class WebSocketConnectRequestMessage(token:String,code:Int,roomId:Long,msg:String)
 
-case class WebSocketConnectResponseMessage()
+case class WebSocketConnectResponseMessage(roomId:Long,roomName:String,msg:String)

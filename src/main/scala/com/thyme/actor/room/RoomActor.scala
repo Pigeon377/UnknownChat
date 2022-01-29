@@ -5,8 +5,12 @@ import akka.pattern.ask
 import com.thyme.Test.timeout
 import com.thyme.actor.SingletonActor.{roomTransactionActor, userTransactionActor}
 import com.thyme.actor.database.{ChangeRoomName, QueryRoom, QueryRoomSucceed, QueryUserJoinedAllRoom, QueryUserJoinedAllRoomSucceed, RoomUnExist}
+import com.thyme.actor.room.RoomActor.convert
 import com.thyme.extension.FinalParam.system
 import com.thyme.model.User
+import com.thyme.router.websocket.WebSocketConnectResponseMessage
+import spray.json.DefaultJsonProtocol.{LongJsonFormat, StringJsonFormat, jsonFormat3}
+import spray.json.{RootJsonFormat, enrichAny}
 
 import scala.collection.mutable
 import scala.concurrent.Await
@@ -14,7 +18,8 @@ import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 class RoomActor(val roomID: Long,
-                var userList:List[User])
+                var roomName:String = "Unknown Room",
+                var userList:List[User]=List())
     extends Actor {
 
     // every user will be abstracted to a actor (but i don't know it's type)
@@ -30,7 +35,8 @@ class RoomActor(val roomID: Long,
     }
 
     def broadcastMessage(message: String): Unit = {
-        userConnectionMap.values.foreach(_ ! message)
+        val res:String = WebSocketConnectResponseMessage(this.roomID,this.roomName,message).toJson.toString()
+        userConnectionMap.values.foreach(_ ! res)
     }
 
 
@@ -65,6 +71,8 @@ class RoomActor(val roomID: Long,
 
     private def changeRoomName(newRoomName: String): Unit = {
         Await.result(roomTransactionActor ? ChangeRoomName(this.roomID,newRoomName),7 seconds)
+        this.roomName = newRoomName
+        // Future will check database update succeed or not and depend on its result to change room name
     }
 
 
@@ -86,7 +94,7 @@ object RoomActor {
         if (roomActorOption.isEmpty) {
             Await.result(roomTransactionActor ? QueryRoom(roomID), 7 seconds) match {
                 case QueryRoomSucceed(room, users) =>
-                    val roomActor = system.actorOf(Props(new RoomActor(room.id,users.toList)))
+                    val roomActor = system.actorOf(Props(new RoomActor(room.id,room.name,users.toList)))
                     this.roomActorMap.put(roomID, roomActor)
                     roomActor
                 case RoomUnExist() =>
@@ -104,4 +112,6 @@ object RoomActor {
         }
     }
 
+
+    private implicit def convert: RootJsonFormat[WebSocketConnectResponseMessage] = jsonFormat3(WebSocketConnectResponseMessage)
 }
