@@ -16,7 +16,9 @@ response:
 {
   "status": 1,
   "message": "Succeed",
-  "data": {}
+  "data": {
+    "user_id": "number"
+  }
 }
 ```
 
@@ -32,7 +34,7 @@ url : /api/auth/login
 
 |param|type|value|
 |-----|----|-----|
-|mailbox|string|mailbox|
+|user_id|int| user's id , get from register interface |
 |password|string|password|
 
 response:
