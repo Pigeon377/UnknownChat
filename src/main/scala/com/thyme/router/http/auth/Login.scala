@@ -5,15 +5,15 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
+import com.thyme.actor.SingletonActor.userTransactionActor
+import com.thyme.actor.database.{QueryUser, QueryUserSucceed, UserUnExist}
 import com.thyme.extension.ExtensionFunction
+import com.thyme.extension.ExtensionFunction._
 import spray.json.DefaultJsonProtocol.{IntJsonFormat, StringJsonFormat, jsonFormat3, mapFormat}
 import spray.json.{RootJsonFormat, enrichAny}
-import com.thyme.actor.SingletonActor.userTransactionActor
-import com.thyme.actor.database.{QueryRoomSucceed, QueryUser, QueryUserSucceed, UserUnExist}
-import com.thyme.extension.ExtensionFunction._
 
-import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration.DurationInt
+import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps
 
 object Login {

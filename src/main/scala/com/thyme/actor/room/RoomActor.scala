@@ -22,6 +22,8 @@ class RoomActor(val roomID: Long,
                 var userList:List[User]=List())
     extends Actor {
 
+    lazy val userIdList: List[Long] = userList.map(x => x.id)
+
     // every user will be abstracted to a actor (but i don't know it's type)
     // userId to ActorRef
     val userConnectionMap: mutable.Map[Long, ActorRef] = mutable.Map.empty[Long, ActorRef]
@@ -46,8 +48,10 @@ class RoomActor(val roomID: Long,
      *                 user can receive message in this room
      * */
     private def joinRoom(userId: Long,actorRef: ActorRef):Unit = {
-//    future    this.userList.contains(userId)
-        this.userConnectionMap.put(userId,actorRef)
+        if (userIdList.contains(userId)) {
+            this.userConnectionMap.put(userId, actorRef)
+        }
+        // Future: else return can't joined message
     }
 
 
@@ -113,5 +117,5 @@ object RoomActor {
     }
 
 
-    private implicit def convert: RootJsonFormat[WebSocketConnectResponseMessage] = jsonFormat3(WebSocketConnectResponseMessage)
+    implicit def convert: RootJsonFormat[WebSocketConnectResponseMessage] = jsonFormat3(WebSocketConnectResponseMessage)
 }

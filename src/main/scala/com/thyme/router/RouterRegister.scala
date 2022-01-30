@@ -5,6 +5,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.Materializer
 import com.thyme.router.http.auth.{Login, Register}
+import com.thyme.router.http.chat.CreateRoom
 import com.thyme.router.websocket.WebSocketConnect
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -24,7 +25,7 @@ object RouterRegister {
     private def chatRouter(): Route = {
         pathPrefix("chat") {
             concat(
-
+                CreateRoom.controller()
             )
         }
     }
@@ -34,7 +35,7 @@ object RouterRegister {
             concat(
                 Login.controller,
                 Register.controller
-                //                AuthUpdate.controller
+                //                Update.controller
             )
         }
     }

@@ -4,14 +4,13 @@ import akka.actor.Actor
 import com.thyme.model.{DataBase, Room}
 import org.squeryl.PrimitiveTypeMode._
 
-import scala.collection.mutable
-
 class RoomTransactionActor extends Actor {
     override def receive: Receive = {
 
         case InsertRoom(room) => insertNewRoom(room)
         case QueryRoom(roomId) => queryRoom(roomId)
         case ChangeRoomName(roomId, newName) => changeRoomName(roomId, newName)
+
     }
 
     private def insertNewRoom(room: Room): Unit = {
