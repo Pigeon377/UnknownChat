@@ -90,7 +90,7 @@ object RoomActor {
     /**
      * @param roomID using roomID to get right room actor
      * @return
-     *      ActorRef => get room which you find
+     *      ActorRef => get room actor which you find
      *      null     => room is UnExist
      * */
     def apply(roomID: Long): ActorRef = {
@@ -115,6 +115,7 @@ object RoomActor {
                 userList.foreach(x=>RoomActor(x) ! JoinRoom(userId,actorRef))
         }
     }
+
 
 
     implicit def convert: RootJsonFormat[WebSocketConnectResponseMessage] = jsonFormat3(WebSocketConnectResponseMessage)

@@ -10,7 +10,7 @@ class RoomTransactionActor extends Actor {
         case InsertRoom(room) => insertNewRoom(room)
         case QueryRoom(roomId) => queryRoom(roomId)
         case ChangeRoomName(roomId, newName) => changeRoomName(roomId, newName)
-
+        case JoinUserToRoom(roomId, userId) => joinUserToRoom(roomId, userId)
     }
 
     private def insertNewRoom(room: Room): Unit = {
@@ -34,6 +34,17 @@ class RoomTransactionActor extends Actor {
     private def changeRoomName(roomId: Long, newName: String): Unit = {
         transaction {
             update(DataBase.rooms)(r => where(r.id === roomId) set (r.name := newName))
+        }
+    }
+
+    private def joinUserToRoom(roomId: Long, userId: Long): Unit = {
+        transaction {
+            val user = DataBase.users.where(u => u.id === userId).head
+            val room = DataBase.rooms.where(r => r.id === roomId).head
+            user.rooms.associate(room)
+            room.users.associate(user)
+            DataBase.users.update(user)
+            DataBase.rooms.update(room)
         }
     }
 
