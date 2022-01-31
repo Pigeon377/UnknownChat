@@ -36,4 +36,6 @@ class RoomTransactionActor extends Actor {
             update(DataBase.rooms)(r => where(r.id === roomId) set (r.name := newName))
         }
     }
+
+
 }

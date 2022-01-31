@@ -27,8 +27,8 @@ object CreateRoom {
         post {
             path("create") {
                 (formFieldMap & headerValueByName("token")) {
-                    (formParam, token) =>
-                        val userId = checkJwtToken(token)
+                    (formParam, tokenString) =>
+                        val userId = checkJwtToken(tokenString)
                         val roomName = formParam("room_name")
                         if (userId == -1) {
                             complete(StatusCodes.Accepted, HttpEntity(ContentTypes.`application/json`,
